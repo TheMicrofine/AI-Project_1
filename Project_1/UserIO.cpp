@@ -7,6 +7,12 @@
 // Ctrl				Model controls
 // Alt				Light controls
 
+
+bool xPos = false;
+bool xNeg = false;
+bool yPos = false;
+bool yNeg = false;
+
 bool IsShiftDown(GLFWwindow* window)
 {
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT)) { return true; }
@@ -47,25 +53,63 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
 	}
 
+
+
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
-		playerTransform->position.y += 5.0f;
+		playerVelocity->vy = 3.0f;
+		yPos = true;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_RELEASE && yPos == true)
+	{
+		playerVelocity->vy = 0.0f;
+		yPos = false;
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)	// "backwards"
 	{
-		playerTransform->position.y += -5.0f;
+		playerVelocity->vy = -3.0f;
+		yNeg = true;
 	}
+
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_RELEASE && yNeg == true)
+	{
+		playerVelocity->vy = 0.0f;
+		yNeg = false;
+	}
+
 
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)	// "left"
 	{
-		playerTransform->position.x += 5.0f;
+		playerVelocity->vx = 3.0f;
+		xPos = true;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_RELEASE && xPos)	// "left"
+	{
+		playerVelocity->vx = 0.0f;
+		xPos = false;
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)	// "right"
 	{
-		playerTransform->position.x += -5.0f;
+		playerVelocity->vx = -3.0f;
+		xNeg = true;
 	}
+
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_RELEASE && xNeg)	// "right"
+	{
+		playerVelocity->vx = 0.0f;
+		xNeg = false;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+	{
+		bulletTransform = playerTransform;
+		bulletVelocity = playerVelocity;
+	}
+
 
 	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)	// "right"
 	{

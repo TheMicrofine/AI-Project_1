@@ -48,8 +48,11 @@ void LoadModelsIntoScene();
 void DrawObject(Entity* entity, glm::mat4x4& matModel, GLuint shaderProgramID);
 
 extern BehaviourManager gBehaviourManager;
-extern Transform* playerTransform;
 extern double startTime;
+extern Transform* playerTransform;
+extern Velocity* playerVelocity;
+extern Transform* bulletTransform;
+extern Velocity* bulletVelocity;
 
 //// *****************************************************************
 //// This is part of the physics stuff

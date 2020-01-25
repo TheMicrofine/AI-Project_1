@@ -7,6 +7,9 @@
 #include "behaviours/bWanderBehaviour.h"
 
 Transform* playerTransform;
+Velocity* playerVelocity;
+Transform* bulletTransform;
+Velocity* bulletVelocity;
 
 // Loading models was moved into this function
 void LoadModelTypes(cVAOMeshManager* pTheVAOMeshManager, GLuint shaderProgramID)
@@ -92,6 +95,8 @@ void LoadModelsIntoScene()
 	playerTransform->setUniformScale(15.0f);
 	playerTransform->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
 
+	playerVelocity = entity1->AddComponent<Velocity>();
+
 	entity1->AddComponent<Velocity>();
 
 	// ENTITY #2 - Seek
@@ -165,6 +170,26 @@ void LoadModelsIntoScene()
 	entity5->AddComponent<Velocity>();
 
 	gBehaviourManager.SetBehaviour(entity5, new WanderBehaviour(entity5));
+
+	// ENTITY PLAYER BULLET
+	{
+		Entity* entity = EntityManager::CreateEntity();
+		entity->name = "playerBullet";
+
+		Properties* properties = entity->AddComponent<Properties>();
+		properties->setDiffuseColour(glm::vec3(0.0f, 1.0f, 0.0f));
+		properties->meshName = "Sphere_n_uv.ply";
+		properties->bIsVisible = true;
+		properties->bIsWireFrame = true;
+
+		bulletTransform = entity->AddComponent<Transform>();
+		bulletTransform->position = glm::vec3(-2500.0f, 300.0f, 0.0f);
+		bulletTransform->setUniformScale(10.0f);
+		bulletTransform->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+
+		bulletVelocity = entity->AddComponent<Velocity>();
+	}
+
 
 	// ENTITY #10 - Debug Sphere
 	{
