@@ -3,11 +3,11 @@
 
 #include "globalOpenGLStuff.h"
 
-#include "behaviours/Entity.h"
-#include "behaviours/cProperties.h"
-#include "behaviours/cTransform.h"
-#include "behaviours/cVelocity.h"
-#include "behaviours/BehaviourManager.h"
+#include "ecs/Entity.h"
+#include "ecs/cProperties.h"
+#include "ecs/cTransform.h"
+#include "ecs/cVelocity.h"
+#include "ecs/BehaviourManager.h"
 
 #include <glm/glm.hpp>
 #include <glm/vec3.hpp>

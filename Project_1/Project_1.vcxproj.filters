@@ -52,6 +52,9 @@
     <Filter Include="ECS\Behaviour">
       <UniqueIdentifier>{8600d8c5-18db-4b9c-846b-c3c57ad56050}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ECS\Component">
+      <UniqueIdentifier>{97b52745-a9ab-495d-93ca-04df490adff0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cCamera.cpp">
@@ -120,44 +123,44 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="behaviours\cProperties.cpp">
-      <Filter>ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="behaviours\cTransform.cpp">
-      <Filter>ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="behaviours\Engine.cpp">
-      <Filter>ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="behaviours\Entity.cpp">
-      <Filter>ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="behaviours\EntityManager.cpp">
-      <Filter>ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="behaviours\sCollisionSystem.cpp">
-      <Filter>ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="behaviours\sMotionSystem.cpp">
-      <Filter>ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="behaviours\sObstacleSystem.cpp">
-      <Filter>ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="behaviours\bApproachBehaviour.cpp">
+    <ClCompile Include="ecs\bApproachBehaviour.cpp">
       <Filter>ECS\Behaviour</Filter>
     </ClCompile>
-    <ClCompile Include="behaviours\BehaviourManager.cpp">
+    <ClCompile Include="ecs\BehaviourManager.cpp">
       <Filter>ECS\Behaviour</Filter>
     </ClCompile>
-    <ClCompile Include="behaviours\bPursueBehaviour.cpp">
+    <ClCompile Include="ecs\bPursueBehaviour.cpp">
       <Filter>ECS\Behaviour</Filter>
     </ClCompile>
-    <ClCompile Include="behaviours\bSeekBehaviour.cpp">
+    <ClCompile Include="ecs\bSeekBehaviour.cpp">
       <Filter>ECS\Behaviour</Filter>
     </ClCompile>
-    <ClCompile Include="behaviours\bWanderBehaviour.cpp">
+    <ClCompile Include="ecs\bWanderBehaviour.cpp">
       <Filter>ECS\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\cProperties.cpp">
+      <Filter>ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\cTransform.cpp">
+      <Filter>ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\Engine.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\Entity.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\EntityManager.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\sCollisionSystem.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\sMotionSystem.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\sObstacleSystem.cpp">
+      <Filter>ECS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -221,59 +224,59 @@
     <ClInclude Include="linmath.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="behaviours\cObstacle.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="behaviours\Component.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="behaviours\cProperties.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="behaviours\cTransform.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="behaviours\cVelocity.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="behaviours\Engine.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="behaviours\Entity.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="behaviours\EntityManager.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="behaviours\sCollisionSystem.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="behaviours\sMotionSystem.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="behaviours\sObstacleSystem.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="behaviours\System.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="behaviours\bApproachBehaviour.h">
+    <ClInclude Include="ecs\bApproachBehaviour.h">
       <Filter>ECS\Behaviour</Filter>
     </ClInclude>
-    <ClInclude Include="behaviours\Behaviour.h">
+    <ClInclude Include="ecs\Behaviour.h">
       <Filter>ECS\Behaviour</Filter>
     </ClInclude>
-    <ClInclude Include="behaviours\BehaviourManager.h">
+    <ClInclude Include="ecs\BehaviourManager.h">
       <Filter>ECS\Behaviour</Filter>
     </ClInclude>
-    <ClInclude Include="behaviours\bPursueBehaviour.h">
+    <ClInclude Include="ecs\bPursueBehaviour.h">
       <Filter>ECS\Behaviour</Filter>
     </ClInclude>
-    <ClInclude Include="behaviours\bSeekBehaviour.h">
+    <ClInclude Include="ecs\bSeekBehaviour.h">
       <Filter>ECS\Behaviour</Filter>
     </ClInclude>
-    <ClInclude Include="behaviours\bWanderBehaviour.h">
+    <ClInclude Include="ecs\bWanderBehaviour.h">
       <Filter>ECS\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\cObstacle.h">
+      <Filter>ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\Component.h">
+      <Filter>ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\cProperties.h">
+      <Filter>ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\cTransform.h">
+      <Filter>ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\cVelocity.h">
+      <Filter>ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\Engine.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\Entity.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\EntityManager.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\sCollisionSystem.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\sMotionSystem.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\sObstacleSystem.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\System.h">
+      <Filter>ECS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,10 +1,10 @@
 #include "globalOpenGLStuff.h"
 #include "globalStuff.h"
-#include "behaviours/EntityManager.h"
-#include "behaviours/bSeekBehaviour.h"
-#include "behaviours/bPursueBehaviour.h"
-#include "behaviours/bApproachBehaviour.h"
-#include "behaviours/bWanderBehaviour.h"
+#include "ecs/EntityManager.h"
+#include "ecs/bSeekBehaviour.h"
+#include "ecs/bPursueBehaviour.h"
+#include "ecs/bApproachBehaviour.h"
+#include "ecs/bWanderBehaviour.h"
 
 Transform* playerTransform;
 Velocity* playerVelocity;

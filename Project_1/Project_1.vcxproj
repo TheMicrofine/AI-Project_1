@@ -142,19 +142,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="behaviours\bApproachBehaviour.cpp" />
-    <ClCompile Include="behaviours\BehaviourManager.cpp" />
-    <ClCompile Include="behaviours\bPursueBehaviour.cpp" />
-    <ClCompile Include="behaviours\bSeekBehaviour.cpp" />
-    <ClCompile Include="behaviours\bWanderBehaviour.cpp" />
-    <ClCompile Include="behaviours\cProperties.cpp" />
-    <ClCompile Include="behaviours\cTransform.cpp" />
-    <ClCompile Include="behaviours\Engine.cpp" />
-    <ClCompile Include="behaviours\Entity.cpp" />
-    <ClCompile Include="behaviours\EntityManager.cpp" />
-    <ClCompile Include="behaviours\sCollisionSystem.cpp" />
-    <ClCompile Include="behaviours\sMotionSystem.cpp" />
-    <ClCompile Include="behaviours\sObstacleSystem.cpp" />
+    <ClCompile Include="ecs\bApproachBehaviour.cpp" />
+    <ClCompile Include="ecs\BehaviourManager.cpp" />
+    <ClCompile Include="ecs\bPursueBehaviour.cpp" />
+    <ClCompile Include="ecs\bSeekBehaviour.cpp" />
+    <ClCompile Include="ecs\bWanderBehaviour.cpp" />
+    <ClCompile Include="ecs\cProperties.cpp" />
+    <ClCompile Include="ecs\cTransform.cpp" />
+    <ClCompile Include="ecs\Engine.cpp" />
+    <ClCompile Include="ecs\Entity.cpp" />
+    <ClCompile Include="ecs\EntityManager.cpp" />
+    <ClCompile Include="ecs\sCollisionSystem.cpp" />
+    <ClCompile Include="ecs\sMotionSystem.cpp" />
+    <ClCompile Include="ecs\sObstacleSystem.cpp" />
     <ClCompile Include="C24BitBMPpixel.cpp" />
     <ClCompile Include="cAABB.cpp" />
     <ClCompile Include="cBasicTextureManager.cpp" />
@@ -179,24 +179,24 @@
     <ClCompile Include="UserIO.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="behaviours\bApproachBehaviour.h" />
-    <ClInclude Include="behaviours\Behaviour.h" />
-    <ClInclude Include="behaviours\BehaviourManager.h" />
-    <ClInclude Include="behaviours\bPursueBehaviour.h" />
-    <ClInclude Include="behaviours\bSeekBehaviour.h" />
-    <ClInclude Include="behaviours\bWanderBehaviour.h" />
-    <ClInclude Include="behaviours\cObstacle.h" />
-    <ClInclude Include="behaviours\Component.h" />
-    <ClInclude Include="behaviours\cProperties.h" />
-    <ClInclude Include="behaviours\cTransform.h" />
-    <ClInclude Include="behaviours\cVelocity.h" />
-    <ClInclude Include="behaviours\Engine.h" />
-    <ClInclude Include="behaviours\Entity.h" />
-    <ClInclude Include="behaviours\EntityManager.h" />
-    <ClInclude Include="behaviours\sCollisionSystem.h" />
-    <ClInclude Include="behaviours\sMotionSystem.h" />
-    <ClInclude Include="behaviours\sObstacleSystem.h" />
-    <ClInclude Include="behaviours\System.h" />
+    <ClInclude Include="ecs\bApproachBehaviour.h" />
+    <ClInclude Include="ecs\Behaviour.h" />
+    <ClInclude Include="ecs\BehaviourManager.h" />
+    <ClInclude Include="ecs\bPursueBehaviour.h" />
+    <ClInclude Include="ecs\bSeekBehaviour.h" />
+    <ClInclude Include="ecs\bWanderBehaviour.h" />
+    <ClInclude Include="ecs\cObstacle.h" />
+    <ClInclude Include="ecs\Component.h" />
+    <ClInclude Include="ecs\cProperties.h" />
+    <ClInclude Include="ecs\cTransform.h" />
+    <ClInclude Include="ecs\cVelocity.h" />
+    <ClInclude Include="ecs\Engine.h" />
+    <ClInclude Include="ecs\Entity.h" />
+    <ClInclude Include="ecs\EntityManager.h" />
+    <ClInclude Include="ecs\sCollisionSystem.h" />
+    <ClInclude Include="ecs\sMotionSystem.h" />
+    <ClInclude Include="ecs\sObstacleSystem.h" />
+    <ClInclude Include="ecs\System.h" />
     <ClInclude Include="C24BitBMPpixel.h" />
     <ClInclude Include="cAABB.h" />
     <ClInclude Include="cBasicTextureManager.h" />

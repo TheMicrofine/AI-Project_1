@@ -1,7 +1,7 @@
 #include <iostream>
 #include <ctime>
-#include "behaviours/Engine.h"
-#include "behaviours/sMotionSystem.h"
+#include "ecs/Engine.h"
+#include "ecs/sMotionSystem.h"
 
 int main(void)
 {
