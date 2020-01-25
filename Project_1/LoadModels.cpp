@@ -183,7 +183,7 @@ void LoadModelsIntoScene()
 		properties->bIsWireFrame = true;
 
 		bulletTransform = entity->AddComponent<Transform>();
-		bulletTransform->position = glm::vec3(-2500.0f, 300.0f, 0.0f);
+		bulletTransform->position = glm::vec3(-250.0f, 300.0f, 0.0f);
 		bulletTransform->setUniformScale(10.0f);
 		bulletTransform->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
 

@@ -106,8 +106,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
-		bulletTransform = playerTransform;
-		bulletVelocity = playerVelocity;
+		bulletTransform->position = playerTransform->position;
+		bulletVelocity->vx = playerVelocity->vx * 1.2f;
+		bulletVelocity->vy = playerVelocity->vy * 1.2f;
 	}
 
 
