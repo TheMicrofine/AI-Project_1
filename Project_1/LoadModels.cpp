@@ -22,27 +22,6 @@ void LoadModelTypes(cVAOMeshManager* pTheVAOMeshManager, GLuint shaderProgramID)
 	sphereInvertedNormalsInfo.meshFileName = "Sphere_n_uv_INVERTED_NORMALS.ply";
 	pTheVAOMeshManager->LoadModelIntoVAO(sphereInvertedNormalsInfo, shaderProgramID);
 
-	sModelDrawInfo Cubicuboctahedron;
-	sphereInfo.meshFileName = "Cubicuboctahedron.ply";
-	pTheVAOMeshManager->LoadModelIntoVAO(sphereInfo, shaderProgramID);
-
-	sModelDrawInfo Dodecahemidodecahedron;
-	sphereInfo.meshFileName = "Dodecahemidodecahedron.ply";
-	pTheVAOMeshManager->LoadModelIntoVAO(sphereInfo, shaderProgramID);
-
-	sModelDrawInfo Hexahedron;
-	sphereInfo.meshFileName = "Hexahedron.ply";
-	pTheVAOMeshManager->LoadModelIntoVAO(sphereInfo, shaderProgramID);
-
-	sModelDrawInfo PentagrammicAntiprism;
-	sphereInfo.meshFileName = "PentagrammicAntiprism.ply";
-	pTheVAOMeshManager->LoadModelIntoVAO(sphereInfo, shaderProgramID);
-
-	sModelDrawInfo Tetrahemihexahedron;
-	sphereInfo.meshFileName = "Tetrahemihexahedron.ply";
-	pTheVAOMeshManager->LoadModelIntoVAO(sphereInfo, shaderProgramID);
-
-
 	// At this point, mesh in in GPU
 	std::cout << "Mesh was loaded OK" << std::endl;
 
@@ -80,6 +59,7 @@ void LoadModelsIntoScene()
 	transform->position = glm::vec3(0.0f, 0.0f, 0.0f);
 	transform->setUniformScale(5000.0f);
 	transform->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+	entity->sphereRadius *= transform->scale.x;
 
 
 	// ENTITY #1 - The Player
@@ -87,33 +67,36 @@ void LoadModelsIntoScene()
 	entity1->name = "Player";
 
 	Properties* properties1 = entity1->AddComponent<Properties>();
-	properties1->setDiffuseColour(glm::vec3(0.0f, 1.0f, 1.0f));
-	properties1->meshName = "PentagrammicAntiprism.ply";
+	properties1->setDiffuseColour(glm::vec3(0.0f, 0.0f, 0.0f));
+	properties1->bDontLight = true;
+	properties1->meshName = "Sphere_n_uv.ply";
 
 	playerTransform = entity1->AddComponent<Transform>();
 	playerTransform->position = glm::vec3(-250.0f, 300.0f, 0.0f);
 	playerTransform->setUniformScale(15.0f);
 	playerTransform->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+	entity1->sphereRadius = playerTransform->scale.x;
 
 	playerVelocity = entity1->AddComponent<Velocity>();
-
 	entity1->AddComponent<Velocity>();
+
 
 	// ENTITY #2 - Seek
 	Entity* entity2 = EntityManager::CreateEntity();
 	entity2->name = "Seek";
 
 	Properties* properties2 = entity2->AddComponent<Properties>();
-	properties2->setDiffuseColour(glm::vec3(1.0f, 0.0f, 0.0f));
-	properties2->meshName = "Cubicuboctahedron.ply";
+	properties2->setDiffuseColour(glm::vec3(1.0f, 0.0f, 0.0f));						// SEEK == RED		FLEE == BLUE
+	properties2->bDontLight = true;
+	properties2->meshName = "Sphere_n_uv.ply";
 
 	Transform* transform2 = entity2->AddComponent<Transform>();
 	transform2->position = glm::vec3(100.0f, 0.0f, 0.0f);
 	transform2->setUniformScale(15.0f);
 	transform2->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+	entity2->sphereRadius = transform2->scale.x;
 
 	entity2->AddComponent<Velocity>();
-
 	gBehaviourManager.SetBehaviour(entity2, new SeekBehaviour(entity2, entity1));
 
 	// ENTITY #3 - Pursue
@@ -121,13 +104,15 @@ void LoadModelsIntoScene()
 	entity3->name = "Pursue";
 
 	Properties* properties3 = entity3->AddComponent<Properties>();
-	properties3->setDiffuseColour(glm::vec3(0.0f, 1.0f, 0.0f));
-	properties3->meshName = "Dodecahemidodecahedron.ply";
+	properties3->setDiffuseColour(glm::vec3(0.0f, 1.0f, 0.0f));							// PURSUE == GREEN		EVADE == YELLOW
+	properties3->bDontLight = true;
+	properties3->meshName = "Sphere_n_uv.ply";
 
 	Transform* transform3 = entity3->AddComponent<Transform>();
 	transform3->position = glm::vec3(-200.0f, 0.0f, 0.0f);
 	transform3->setUniformScale(15.0f);
 	transform3->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+	entity3->sphereRadius = transform3->scale.x;
 
 	entity3->AddComponent<Velocity>();
 
@@ -138,13 +123,15 @@ void LoadModelsIntoScene()
 	entity4->name = "Approach";
 
 	Properties* properties4 = entity4->AddComponent<Properties>();
-	properties4->setDiffuseColour(glm::vec3(0.0f, 0.0f, 1.0f));
-	properties4->meshName = "Tetrahemihexahedron.ply";
+	properties4->setDiffuseColour(glm::vec3(1.0f, 0.0f, 1.0f));							// APPROACH == PURPLE
+	properties4->bDontLight = true;
+	properties4->meshName = "Sphere_n_uv.ply";
 
 	Transform* transform4 = entity4->AddComponent<Transform>();
 	transform4->position = glm::vec3(-1000.0f, 0.0f, 0.0f);
 	transform4->setUniformScale(15.0f);
 	transform4->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+	entity4->sphereRadius = transform4->scale.x;
 
 	entity4->AddComponent<Velocity>();
 
@@ -155,8 +142,9 @@ void LoadModelsIntoScene()
 	entity5->name = "Wander";
 
 	Properties* properties5 = entity5->AddComponent<Properties>();
-	properties5->setDiffuseColour(glm::vec3(1.0f, 1.0f, 0.0f));
-	properties5->meshName = "Hexahedron.ply";
+	properties5->setDiffuseColour(glm::vec3(0.0f, 1.0f, 1.0f));							// WANDER == CYAN		IDLE == BROWN (150.0f/255.0f, 92.0f, 255.0f, 26.0f/255.0f)
+	properties5->bDontLight = true;
+	properties5->meshName = "Sphere_n_uv.ply";
 
 	Transform* transform5 = entity5->AddComponent<Transform>();
 
@@ -166,6 +154,7 @@ void LoadModelsIntoScene()
 	transform5->position = glm::vec3(xRand, yRand, 0.0f);
 	transform5->setUniformScale(15.0f);
 	transform5->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+	entity5->sphereRadius = transform5->scale.x;
 
 	entity5->AddComponent<Velocity>();
 
@@ -177,7 +166,8 @@ void LoadModelsIntoScene()
 		entity->name = "playerBullet";
 
 		Properties* properties = entity->AddComponent<Properties>();
-		properties->setDiffuseColour(glm::vec3(0.0f, 1.0f, 0.0f));
+		properties->setDiffuseColour(glm::vec3(194.0f/155.0f, 64.0f/255.0f, 118.0f/255.0f));
+		properties->bDontLight = true;
 		properties->meshName = "Sphere_n_uv.ply";
 		properties->bIsVisible = true;
 		properties->bIsWireFrame = true;
@@ -186,6 +176,7 @@ void LoadModelsIntoScene()
 		bulletTransform->position = glm::vec3(-250.0f, 300.0f, 0.0f);
 		bulletTransform->setUniformScale(10.0f);
 		bulletTransform->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+		entity->sphereRadius = bulletTransform->scale.x;
 
 		bulletVelocity = entity->AddComponent<Velocity>();
 	}

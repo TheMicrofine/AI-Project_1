@@ -2,6 +2,7 @@
 #include <ctime>
 #include "ecs/Engine.h"
 #include "ecs/sMotionSystem.h"
+#include "ecs/sCollisionSystem.h"
 
 int main(void)
 {
@@ -16,6 +17,7 @@ int main(void)
 	}
 
 	Engine::AddSystem(new MotionSystem());
+	Engine::AddSystem(new CollisionSystem());
 
 	printf("Running...\n");
 	result = Engine::Run();

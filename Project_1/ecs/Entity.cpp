@@ -6,6 +6,7 @@
  */
 Entity::Entity(void)
 {
+	sphereRadius = 1.0f;
 }
 
 /**
