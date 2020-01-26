@@ -46,6 +46,9 @@ bool AreAllModifiersUp(GLFWwindow* window)
 	return true;
 }
 
+int bulletCount = -1;
+Transform* transform;
+Velocity* velocity;
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -106,52 +109,23 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
-		bulletTransform->position = playerTransform->position;
-		bulletVelocity->vx = playerVelocity->vx * 1.2f;
-		bulletVelocity->vy = playerVelocity->vy * 1.2f;
-	}
+		if (bulletCount >= 9)
+			bulletCount = 0;
 
+		bulletCount++;
+
+		transform = Bullets.at(bulletCount)->GetComponent<Transform>();
+		velocity = Bullets.at(bulletCount)->GetComponent<Velocity>();
+
+		transform->position = playerTransform->position;
+		velocity->vx = playerVelocity->vx * 1.4f;
+		velocity->vy = playerVelocity->vy * 1.4f;
+	}
 
 	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)	// "right"
 	{
 		std::cout << playerTransform->position.x << " " << playerTransform->position.y << " " << playerTransform->position.z;
 	}
-
-	// Model controls
-	//if (mods == GLFW_MOD_CONTROL)
-	//{
-
-	//	if (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS)
-	//	{
-	//		if (::g_ModelIndex + 1 < ::g_vec_pObjectsToDraw.size())
-	//		{
-	//			::g_ModelIndex++;
-	//		}
-	//		else
-	//		{
-	//			::g_ModelIndex = 0;
-	//		}
-
-	//	}
-
-	//	if (glfwGetKey(window, GLFW_KEY_GRAVE_ACCENT) == GLFW_PRESS)
-	//	{
-	//		::g_vec_pObjectsToDraw[g_ModelIndex]->bIsWireFrame = !g_vec_pObjectsToDraw[g_ModelIndex]->bIsWireFrame;
-	//	}
-
-	//	if (glfwGetKey(window, GLFW_KEY_9) == GLFW_PRESS)
-	//	{
-	//		::g_vec_pObjectsToDraw[g_ModelIndex]->vecTextures[0].strength += 0.5f;
-	//		::g_vec_pObjectsToDraw[g_ModelIndex]->vecTextures[1].strength -= 0.5f;
-	//	}
-	//	if (glfwGetKey(window, GLFW_KEY_0) == GLFW_PRESS)
-	//	{
-	//		::g_vec_pObjectsToDraw[g_ModelIndex]->vecTextures[0].strength -= 0.5f;
-	//		::g_vec_pObjectsToDraw[g_ModelIndex]->vecTextures[1].strength += 0.5f;
-	//	}
-
-
-	//}//if ( isShiftDownAlone(mods) )
 
 	// Light controls
 	if (mods == GLFW_MOD_ALT)
@@ -197,66 +171,36 @@ void ProcessAsyncKeys(GLFWwindow* window)
 
 	if (IsShiftDown(window))
 	{
-		//if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		//{
-		//	::g_vec_pObjectsToDraw[4]->position.z += moveSpeed;
-		//	::g_vec_pObjectsToDraw[5]->position.z += moveSpeed;
-		//}
-		//if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)	// "backwards"
-		//{
-		//	::g_vec_pObjectsToDraw[4]->position.z -= moveSpeed;
-		//	::g_vec_pObjectsToDraw[5]->position.z -= moveSpeed;
-		//}
-		//if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)	// "left"
-		//{
-		//	::g_vec_pObjectsToDraw[4]->position.x += moveSpeed;
-		//	::g_vec_pObjectsToDraw[5]->position.x += moveSpeed;
-		//}
-		//if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)	// "right"
-		//{
-		//	::g_vec_pObjectsToDraw[4]->position.x -= moveSpeed;
-		//	::g_vec_pObjectsToDraw[5]->position.x -= moveSpeed;
-		//}
+
 	}//IsShiftDown(window)
 
 
 		// Control (ctrl) key down? Move light
 	if (IsCtrlDown(window))
 	{
-		// Note: The "== GLFW_PRESS" isn't really needed as it's actually "1" 
-// (so the if() treats the "1" as true...)
-
-
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		{
-			//			g_CameraEye.z += cameraSpeed;
 			::g_pCamera->MoveForward_Z(+cameraMoveSpeed);
 		}
 		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)	// "backwards"
 		{
-			//			g_CameraEye.z -= cameraSpeed;
 			::g_pCamera->MoveForward_Z(-cameraMoveSpeed);
 		}
 		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)	// "left"
 		{
-			//			g_CameraEye.x -= cameraSpeed;
 			::g_pCamera->MoveLeftRight_X(-cameraMoveSpeed);
 		}
 		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)	// "right"
 		{
-			//			g_CameraEye.x += cameraSpeed;
 			::g_pCamera->MoveLeftRight_X(+cameraMoveSpeed);
 		}
 		if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)	// "up"
 		{
 			::g_pCamera->MoveUpDown_Y(-cameraMoveSpeed);
-			//			::g_pFlyCamera->Roll_CW_CCW( +cameraSpeed );
 		}
 		if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)	// "down"
 		{
-			//			g_CameraEye.y -= cameraSpeed;
 			::g_pCamera->MoveUpDown_Y(+cameraMoveSpeed);
-			//			::g_pFlyCamera->Roll_CW_CCW( -cameraSpeed );
 		}
 		if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)	// "down"
 		{
@@ -323,12 +267,10 @@ void cursor_enter_callback(GLFWwindow* window, int entered)
 	if (entered)
 	{
 		::g_MouseIsInsideWindow = true;
-		std::cout << "Mouse moved inside window" << std::endl;
 	}
 	else
 	{
 		::g_MouseIsInsideWindow = false;
-		std::cout << "Mouse moved outside window" << std::endl;
 	}
 	return;
 }//cursor_enter_callback(...

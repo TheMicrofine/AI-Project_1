@@ -11,6 +11,8 @@ Velocity* playerVelocity;
 Transform* bulletTransform;
 Velocity* bulletVelocity;
 
+std::vector<Entity*> Bullets;
+
 // Loading models was moved into this function
 void LoadModelTypes(cVAOMeshManager* pTheVAOMeshManager, GLuint shaderProgramID)
 {
@@ -70,6 +72,7 @@ void LoadModelsIntoScene()
 	properties1->setDiffuseColour(glm::vec3(0.0f, 0.0f, 0.0f));
 	properties1->bDontLight = true;
 	properties1->meshName = "Sphere_n_uv.ply";
+	properties1->type = Type::PLAYER;
 
 	playerTransform = entity1->AddComponent<Transform>();
 	playerTransform->position = glm::vec3(-250.0f, 300.0f, 0.0f);
@@ -89,6 +92,7 @@ void LoadModelsIntoScene()
 	properties2->setDiffuseColour(glm::vec3(1.0f, 0.0f, 0.0f));						// SEEK == RED		FLEE == BLUE
 	properties2->bDontLight = true;
 	properties2->meshName = "Sphere_n_uv.ply";
+	properties2->type = Type::ENEMY;
 
 	Transform* transform2 = entity2->AddComponent<Transform>();
 	transform2->position = glm::vec3(100.0f, 0.0f, 0.0f);
@@ -107,6 +111,7 @@ void LoadModelsIntoScene()
 	properties3->setDiffuseColour(glm::vec3(0.0f, 1.0f, 0.0f));							// PURSUE == GREEN		EVADE == YELLOW
 	properties3->bDontLight = true;
 	properties3->meshName = "Sphere_n_uv.ply";
+	properties3->type = Type::ENEMY;
 
 	Transform* transform3 = entity3->AddComponent<Transform>();
 	transform3->position = glm::vec3(-200.0f, 0.0f, 0.0f);
@@ -126,6 +131,7 @@ void LoadModelsIntoScene()
 	properties4->setDiffuseColour(glm::vec3(1.0f, 0.0f, 1.0f));							// APPROACH == PURPLE
 	properties4->bDontLight = true;
 	properties4->meshName = "Sphere_n_uv.ply";
+	properties4->type = Type::ENEMY;
 
 	Transform* transform4 = entity4->AddComponent<Transform>();
 	transform4->position = glm::vec3(-1000.0f, 0.0f, 0.0f);
@@ -145,6 +151,7 @@ void LoadModelsIntoScene()
 	properties5->setDiffuseColour(glm::vec3(0.0f, 1.0f, 1.0f));							// WANDER == CYAN		IDLE == BROWN (150.0f/255.0f, 92.0f, 255.0f, 26.0f/255.0f)
 	properties5->bDontLight = true;
 	properties5->meshName = "Sphere_n_uv.ply";
+	properties5->type = Type::ENEMY;
 
 	Transform* transform5 = entity5->AddComponent<Transform>();
 
@@ -160,10 +167,12 @@ void LoadModelsIntoScene()
 
 	gBehaviourManager.SetBehaviour(entity5, new WanderBehaviour(entity5));
 
-	// ENTITY PLAYER BULLET
+	// ENTITY PLAYER BULLETS
+
+	for(int i = 0; i < 10; i++)
 	{
 		Entity* entity = EntityManager::CreateEntity();
-		entity->name = "playerBullet";
+		entity->name = "playerBullet" + std::to_string(i);
 
 		Properties* properties = entity->AddComponent<Properties>();
 		properties->setDiffuseColour(glm::vec3(194.0f/155.0f, 64.0f/255.0f, 118.0f/255.0f));
@@ -171,14 +180,17 @@ void LoadModelsIntoScene()
 		properties->meshName = "Sphere_n_uv.ply";
 		properties->bIsVisible = true;
 		properties->bIsWireFrame = true;
+		properties->type = Type::BULLET;
 
-		bulletTransform = entity->AddComponent<Transform>();
-		bulletTransform->position = glm::vec3(-250.0f, 300.0f, 0.0f);
-		bulletTransform->setUniformScale(10.0f);
-		bulletTransform->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
-		entity->sphereRadius = bulletTransform->scale.x;
+		Transform* transform = entity->AddComponent<Transform>();
+		transform->position = glm::vec3(-2500.0f, 300.0f, 0.0f);
+		transform->setUniformScale(10.0f);
+		transform->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+		entity->sphereRadius = transform->scale.x;
 
-		bulletVelocity = entity->AddComponent<Velocity>();
+		entity->AddComponent<Velocity>();
+
+		Bullets.push_back(entity);
 	}
 
 

@@ -5,12 +5,20 @@
 #include <glm/glm.hpp>
 #include <iostream>
 #include <vector>
+#include "../globalStuff.h"
 
 struct sTextureInfo
 {
 	std::string name;
 	int cachedTextureID;	// Set to -1 by default
 	float strength;			// Set to 0.0f by default
+};
+
+enum class Type
+{
+	PLAYER,
+	ENEMY,
+	BULLET
 };
 
 class Properties : public Component
@@ -23,6 +31,8 @@ public:
 	glm::vec4 materialDiffuse;
 	glm::vec4 materialSpecular;
 
+	Type type;
+
 	bool bIsVisible;
 	bool bIsWireFrame;
 	bool bDontLight;
@@ -31,6 +41,7 @@ public:
 	std::vector<sTextureInfo> vecTextures;
 
 	void setDiffuseColour(glm::vec3 newDiffuse);
+
 };
 
 #endif

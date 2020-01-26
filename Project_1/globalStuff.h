@@ -51,6 +51,9 @@ extern BehaviourManager gBehaviourManager;
 extern double startTime;
 extern Transform* playerTransform;
 extern Velocity* playerVelocity;
+
+extern std::vector<Entity*> Bullets;
+
 extern Transform* bulletTransform;
 extern Velocity* bulletVelocity;
 
