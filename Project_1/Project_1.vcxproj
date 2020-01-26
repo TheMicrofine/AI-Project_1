@@ -142,11 +142,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ecs\bApproachBehaviour.cpp" />
+    <ClCompile Include="ecs\bFlee.cpp" />
+    <ClCompile Include="ecs\bApproach.cpp" />
     <ClCompile Include="ecs\BehaviourManager.cpp" />
-    <ClCompile Include="ecs\bPursueBehaviour.cpp" />
-    <ClCompile Include="ecs\bSeekBehaviour.cpp" />
-    <ClCompile Include="ecs\bWanderBehaviour.cpp" />
+    <ClCompile Include="ecs\bPursue.cpp" />
+    <ClCompile Include="ecs\bSeek.cpp" />
+    <ClCompile Include="ecs\bWander.cpp" />
     <ClCompile Include="ecs\cProperties.cpp" />
     <ClCompile Include="ecs\cTransform.cpp" />
     <ClCompile Include="ecs\Engine.cpp" />
@@ -179,12 +180,13 @@
     <ClCompile Include="UserIO.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ecs\bApproachBehaviour.h" />
+    <ClInclude Include="ecs\bFlee.h" />
+    <ClInclude Include="ecs\bApproach.h" />
     <ClInclude Include="ecs\Behaviour.h" />
     <ClInclude Include="ecs\BehaviourManager.h" />
-    <ClInclude Include="ecs\bPursueBehaviour.h" />
-    <ClInclude Include="ecs\bSeekBehaviour.h" />
-    <ClInclude Include="ecs\bWanderBehaviour.h" />
+    <ClInclude Include="ecs\bPursue.h" />
+    <ClInclude Include="ecs\bSeek.h" />
+    <ClInclude Include="ecs\bWander.h" />
     <ClInclude Include="ecs\cObstacle.h" />
     <ClInclude Include="ecs\Component.h" />
     <ClInclude Include="ecs\cProperties.h" />
