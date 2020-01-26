@@ -10,6 +10,8 @@ public:
 
 	virtual void Update(float dt) = 0;
 
+	float const MAXVELOCITY = 2.0f;
+
 protected:
 	Behaviour(void) { }
 };

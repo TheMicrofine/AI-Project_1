@@ -18,44 +18,28 @@ void SeekBehaviour::Update(float dt)
 	assert(mAgent);
 	assert(mTarget);
 
+	// Gets nessesary components from entites
 	Transform* agentTransform = mAgent->GetComponent<Transform>();
 	Transform* targetTransform = mTarget->GetComponent<Transform>();
 	Velocity* agentVelocity = mAgent->GetComponent<Velocity>();
 
 	if (agentTransform == 0 || targetTransform == 0 || agentVelocity == 0) return;
 
-	// Current direction
-	glm::vec3 agentForward = agentTransform->orientation * glm::vec3(0.0f, 0.0f, 1.0f);
+	glm::vec3 desiredVelocity = glm::normalize(targetTransform->position - agentTransform->position);
 
+	desiredVelocity *= MAXVELOCITY;
+	
+	glm::vec3 steer;
+	steer.x = desiredVelocity.x - agentVelocity->vx;
+	steer.y = desiredVelocity.y - agentVelocity->vy;
 
-	//glm::vec3 targetForward = targetTransform->orientation * glm::vec3(0.0f, 0.0f, 1.0f);
+	agentVelocity->vx += steer.x * dt;
+	agentVelocity->vy += steer.y * dt;
 
-	//float result = glm::dot(agentForward, targetForward);
+	if (agentVelocity->vx > MAXVELOCITY)
+		agentVelocity->vx = MAXVELOCITY;
 
-		//Results
-		//Case #1: -1
-		//Vectors are opposite of each other
-		//Case #2: 1
-		//Vectors are identical
-		//Case #3: 0
-		//Vectors are perpendicular
-		//Case #4: > 0
-		//Facing away
-		//Case #5: 0 < &< 1
-		//Facing towards same plane
-
-
-	// seek direction
-	glm::vec3 seek = glm::normalize(targetTransform->position - agentTransform->position);
-
-	// Implement the seek code here...
-	glm::quat orientation = glm::quat(glm::lookAt(agentTransform->position, seek, UP));
-
-	// Update agent's orientation...
-	agentTransform->orientation = orientation;
-
-	// Update the agent's velocity
-	agentVelocity->vx = seek.x;
-	agentVelocity->vy = seek.y;
+	if (agentVelocity->vy > MAXVELOCITY)
+		agentVelocity->vy = MAXVELOCITY;
 }
 

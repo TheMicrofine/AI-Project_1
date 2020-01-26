@@ -4,6 +4,8 @@
 
 #include "cTransform.h"
 #include "cVelocity.h"
+#include <iostream>
+#include <math.h>
 
 ApproachBehaviour::ApproachBehaviour(Entity* agent, Entity* target) : mAgent(agent), mTarget(target)
 {
@@ -18,28 +20,52 @@ void ApproachBehaviour::Update(float dt)
 	assert(mAgent);
 	assert(mTarget);
 
+	// Gets nessesary components from entites
 	Transform* agentTransform = mAgent->GetComponent<Transform>();
 	Transform* targetTransform = mTarget->GetComponent<Transform>();
 	Velocity* agentVelocity = mAgent->GetComponent<Velocity>();
-	Velocity* targetVelocity = mTarget->GetComponent<Velocity>();
 
 	if (agentTransform == 0 || targetTransform == 0 || agentVelocity == 0) return;
-	
-	//if ((targetTransform->position.x + 150.0f < agentTransform->position.x) || (targetTransform->position.x - 150.0f > agentTransform->position.x) ||
-	//	(targetTransform->position.y + 150.f < agentTransform->position.y) || (targetTransform->position.y - 150.0f > agentTransform->position.y)) 
-	//{
-	// Pursue direction
-	glm::vec3 pursue = glm::normalize(targetTransform->position - agentTransform->position);
 
-	// Implement the pursue code here...
-	glm::quat orientation = glm::quat(glm::lookAt(agentTransform->position, pursue, UP));
+	glm::vec3 desiredVelocity = glm::normalize(targetTransform->position - agentTransform->position);
 
-	// Update agent's orientation...
-	agentTransform->orientation = orientation;
+	glm::vec3 distance = targetTransform->position - agentTransform->position;
 
-	// Update the agent's velocity
-	agentVelocity->vx = pursue.x;
-	agentVelocity->vy = pursue.y;
-	//}
+	distance.x = fabs(distance.x);
+	distance.y = fabs(distance.y);
+
+	if (distance.x < SLOWINGRADIUS && distance.y < SLOWINGRADIUS)
+	{
+		desiredVelocity = desiredVelocity * MAXVELOCITY * (distance / SLOWINGRADIUS);
+	}
+	else
+	{
+		desiredVelocity *= MAXVELOCITY;
+	}
+
+	glm::vec3 steer;
+
+	if (distance.x < MAINTAINRADUIS && distance.y < MAINTAINRADUIS)
+	{
+		agentVelocity->vx = 0;
+		agentVelocity->vy = 0;
+	}
+	else
+	{
+
+		steer.x = desiredVelocity.x - agentVelocity->vx;
+		steer.y = desiredVelocity.y - agentVelocity->vy;
+		
+		agentVelocity->vx += steer.x * dt;
+		agentVelocity->vy += steer.y * dt;
+	}
+
+
+
+	if (agentVelocity->vx > MAXVELOCITY)
+		agentVelocity->vx = MAXVELOCITY;
+
+	if (agentVelocity->vy > MAXVELOCITY)
+		agentVelocity->vy = MAXVELOCITY;
 }
 
