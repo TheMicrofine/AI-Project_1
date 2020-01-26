@@ -1,4 +1,4 @@
-#include "bWanderBehaviour.h"
+#include "bWander.h"
 #include "../globalStuff.h"
 
 #include <assert.h>

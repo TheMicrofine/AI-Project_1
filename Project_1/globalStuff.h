@@ -57,34 +57,4 @@ extern std::vector<Entity*> Bullets;
 extern Transform* bulletTransform;
 extern Velocity* bulletVelocity;
 
-//// *****************************************************************
-//// This is part of the physics stuff
-//// (really should be moved to the physics area, not here)
-//struct sClosestPointData
-//{
-//	glm::vec3 thePoint;
-//	unsigned int triangleIndex;
-//};
-//void CalculateClosestPointsOnMesh(sModelDrawInfo theMeshDrawInfo,
-//	glm::vec3 pointToTest,
-//	std::vector<sClosestPointData> &vecPoints);
-//// *****************************************************************
-//
-//
-////https://stackoverflow.com/questions/9878965/rand-between-0-and-1
-//template <class T>
-//T getRandBetween0and1(void)
-//{
-//	return (T)((double)rand() / (RAND_MAX));
-//}
-//
-//// Inspired by: https://stackoverflow.com/questions/686353/c-random-float-number-generation
-//template <class T>
-//T getRandInRange(T min, T max)
-//{
-//	double value =
-//		min + static_cast <double> (rand())
-//		/ (static_cast <double> (RAND_MAX / (static_cast<double>(max - min))));
-//	return static_cast<T>(value);
-//}
 #endif	// _globalStuff_HG_

@@ -1,4 +1,4 @@
-#include "bApproachBehaviour.h"
+#include "bApproach.h"
 
 #include <assert.h>
 
@@ -59,8 +59,6 @@ void ApproachBehaviour::Update(float dt)
 		agentVelocity->vx += steer.x * dt;
 		agentVelocity->vy += steer.y * dt;
 	}
-
-
 
 	if (agentVelocity->vx > MAXVELOCITY)
 		agentVelocity->vx = MAXVELOCITY;

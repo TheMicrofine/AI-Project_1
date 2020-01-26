@@ -123,19 +123,7 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ecs\bApproachBehaviour.cpp">
-      <Filter>ECS\Behaviour</Filter>
-    </ClCompile>
     <ClCompile Include="ecs\BehaviourManager.cpp">
-      <Filter>ECS\Behaviour</Filter>
-    </ClCompile>
-    <ClCompile Include="ecs\bPursueBehaviour.cpp">
-      <Filter>ECS\Behaviour</Filter>
-    </ClCompile>
-    <ClCompile Include="ecs\bSeekBehaviour.cpp">
-      <Filter>ECS\Behaviour</Filter>
-    </ClCompile>
-    <ClCompile Include="ecs\bWanderBehaviour.cpp">
       <Filter>ECS\Behaviour</Filter>
     </ClCompile>
     <ClCompile Include="ecs\cProperties.cpp">
@@ -161,6 +149,21 @@
     </ClCompile>
     <ClCompile Include="ecs\sObstacleSystem.cpp">
       <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\bApproach.cpp">
+      <Filter>ECS\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\bPursue.cpp">
+      <Filter>ECS\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\bSeek.cpp">
+      <Filter>ECS\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\bWander.cpp">
+      <Filter>ECS\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\bFlee.cpp">
+      <Filter>ECS\Behaviour</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -224,22 +227,10 @@
     <ClInclude Include="linmath.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="ecs\bApproachBehaviour.h">
-      <Filter>ECS\Behaviour</Filter>
-    </ClInclude>
     <ClInclude Include="ecs\Behaviour.h">
       <Filter>ECS\Behaviour</Filter>
     </ClInclude>
     <ClInclude Include="ecs\BehaviourManager.h">
-      <Filter>ECS\Behaviour</Filter>
-    </ClInclude>
-    <ClInclude Include="ecs\bPursueBehaviour.h">
-      <Filter>ECS\Behaviour</Filter>
-    </ClInclude>
-    <ClInclude Include="ecs\bSeekBehaviour.h">
-      <Filter>ECS\Behaviour</Filter>
-    </ClInclude>
-    <ClInclude Include="ecs\bWanderBehaviour.h">
       <Filter>ECS\Behaviour</Filter>
     </ClInclude>
     <ClInclude Include="ecs\cObstacle.h">
@@ -277,6 +268,21 @@
     </ClInclude>
     <ClInclude Include="ecs\System.h">
       <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\bApproach.h">
+      <Filter>ECS\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\bPursue.h">
+      <Filter>ECS\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\bSeek.h">
+      <Filter>ECS\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\bWander.h">
+      <Filter>ECS\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\bFlee.h">
+      <Filter>ECS\Behaviour</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

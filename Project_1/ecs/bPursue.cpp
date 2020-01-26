@@ -1,19 +1,19 @@
-#include "bSeekBehaviour.h"
+#include "bPursue.h"
 
 #include <assert.h>
 
 #include "cTransform.h"
 #include "cVelocity.h"
 
-SeekBehaviour::SeekBehaviour(Entity* agent, Entity* target): mAgent(agent), mTarget(target)
+PursueBehaviour::PursueBehaviour(Entity* agent, Entity* target) : mAgent(agent), mTarget(target)
 {
 }
 
-SeekBehaviour::~SeekBehaviour(void)
+PursueBehaviour::~PursueBehaviour(void)
 {
 }
 
-void SeekBehaviour::Update(float dt)
+void PursueBehaviour::Update(float dt)
 {
 	assert(mAgent);
 	assert(mTarget);
@@ -28,7 +28,7 @@ void SeekBehaviour::Update(float dt)
 	glm::vec3 desiredVelocity = glm::normalize(targetTransform->position - agentTransform->position);
 
 	desiredVelocity *= MAXVELOCITY;
-	
+
 	glm::vec3 steer;
 	steer.x = desiredVelocity.x - agentVelocity->vx;
 	steer.y = desiredVelocity.y - agentVelocity->vy;
