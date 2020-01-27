@@ -12,6 +12,7 @@ Transform* bulletTransform;
 Velocity* bulletVelocity;
 
 std::vector<Entity*> Bullets;
+float const PI = 3.1415926;
 
 // Loading models was moved into this function
 void LoadModelTypes(cVAOMeshManager* pTheVAOMeshManager, GLuint shaderProgramID)
@@ -85,94 +86,124 @@ void LoadModelsIntoScene()
 
 
 	// ENTITY #2 - Seek
-	Entity* entity2 = EntityManager::CreateEntity();
-	entity2->name = "Seek";
+	for (int i = 0; i < 3; i++)
+	{
+		Entity* entity2 = EntityManager::CreateEntity();
+		entity2->name = "Seek";
 
-	Properties* properties2 = entity2->AddComponent<Properties>();
-	properties2->setDiffuseColour(glm::vec3(1.0f, 0.0f, 0.0f));						// SEEK == RED		FLEE == BLUE
-	properties2->bDontLight = true;
-	properties2->meshName = "Sphere_n_uv.ply";
-	properties2->type = Type::ENEMY;
+		Properties* properties2 = entity2->AddComponent<Properties>();
+		properties2->setDiffuseColour(glm::vec3(1.0f, 0.0f, 0.0f));						// SEEK == RED		FLEE == BLUE
+		properties2->bDontLight = true;
+		properties2->meshName = "Sphere_n_uv.ply";
+		properties2->type = Type::ENEMY;
 
-	Transform* transform2 = entity2->AddComponent<Transform>();
-	transform2->position = glm::vec3(500.0f, 0.0f, 0.0f);
-	transform2->setUniformScale(15.0f);
-	transform2->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
-	entity2->sphereRadius = transform2->scale.x;
+		float circleRadius = 550.0f;
+		float angle = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (PI * 2)));
+		float x = sin(angle) * circleRadius;
+		float y = cos(angle) * circleRadius;
 
-	entity2->AddComponent<Velocity>();
-	gBehaviourManager.SetBehaviour(entity2, new SeekBehaviour(entity2, entity1));
+		Transform* transform2 = entity2->AddComponent<Transform>();
+		transform2->position = glm::vec3(x, y, 0.0f);
+		transform2->setUniformScale(15.0f);
+		transform2->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+		entity2->sphereRadius = transform2->scale.x;
+
+		entity2->AddComponent<Velocity>();
+		gBehaviourManager.SetBehaviour(entity2, new SeekBehaviour(entity2, entity1));
+	}
 
 	// ENTITY #3 - Pursue
-	Entity* entity3 = EntityManager::CreateEntity();
-	entity3->name = "Pursue";
+	for (int i = 0; i < 3; i++)
+	{
+		Entity* entity3 = EntityManager::CreateEntity();
+		entity3->name = "Pursue";
 
-	Properties* properties3 = entity3->AddComponent<Properties>();
-	properties3->setDiffuseColour(glm::vec3(0.0f, 1.0f, 0.0f));							// PURSUE == GREEN		EVADE == YELLOW
-	properties3->bDontLight = true;
-	properties3->meshName = "Sphere_n_uv.ply";
-	properties3->type = Type::ENEMY;
+		Properties* properties3 = entity3->AddComponent<Properties>();
+		properties3->setDiffuseColour(glm::vec3(0.0f, 1.0f, 0.0f));							// PURSUE == GREEN		EVADE == YELLOW
+		properties3->bDontLight = true;
+		properties3->meshName = "Sphere_n_uv.ply";
+		properties3->type = Type::ENEMY;
 
-	Transform* transform3 = entity3->AddComponent<Transform>();
-	transform3->position = glm::vec3(-480.0f, 0.0f, 0.0f);
-	transform3->setUniformScale(15.0f);
-	transform3->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
-	entity3->sphereRadius = transform3->scale.x;
+		float circleRadius = 550.0f;
+		float angle = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (PI * 2)));
+		float x = sin(angle) * circleRadius;
+		float y = cos(angle) * circleRadius;
 
-	entity3->AddComponent<Velocity>();
+		Transform* transform3 = entity3->AddComponent<Transform>();
+		transform3->position = glm::vec3(x, y, 0.0f);
+		transform3->setUniformScale(15.0f);
+		transform3->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+		entity3->sphereRadius = transform3->scale.x;
 
-	gBehaviourManager.SetBehaviour(entity3, new PursueBehaviour(entity3, entity1));
+		entity3->AddComponent<Velocity>();
+
+		gBehaviourManager.SetBehaviour(entity3, new PursueBehaviour(entity3, entity1));
+	}
 
 	// ENTITY #4 - Approach
-	Entity* entity4 = EntityManager::CreateEntity();
-	entity4->name = "Approach";
+	for (int i = 0; i < 3; i++)
+	{
+		Entity* entity4 = EntityManager::CreateEntity();
+		entity4->name = "Approach";
 
-	Properties* properties4 = entity4->AddComponent<Properties>();
-	properties4->setDiffuseColour(glm::vec3(1.0f, 0.0f, 1.0f));							// APPROACH == PURPLE
-	properties4->bDontLight = true;
-	properties4->meshName = "Sphere_n_uv.ply";
-	properties4->type = Type::ENEMY;
+		Properties* properties4 = entity4->AddComponent<Properties>();
+		properties4->setDiffuseColour(glm::vec3(1.0f, 0.0f, 1.0f));							// APPROACH == PURPLE
+		properties4->bDontLight = true;
+		properties4->meshName = "Sphere_n_uv.ply";
+		properties4->type = Type::ENEMY;
 
-	Transform* transform4 = entity4->AddComponent<Transform>();
-	transform4->position = glm::vec3(-40.0f, 500.0f, 0.0f);
-	transform4->setUniformScale(15.0f);
-	transform4->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
-	entity4->sphereRadius = transform4->scale.x;
+		float circleRadius = 550.0f;
+		float angle = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (PI * 2)));
+		float x = sin(angle) * circleRadius;
+		float y = cos(angle) * circleRadius;
 
-	entity4->AddComponent<Velocity>();
+		Transform* transform4 = entity4->AddComponent<Transform>();
+		transform4->position = glm::vec3(x, y, 0.0f);
+		transform4->setUniformScale(15.0f);
+		transform4->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+		entity4->sphereRadius = transform4->scale.x;
 
-	gBehaviourManager.SetBehaviour(entity4, new ApproachBehaviour(entity4, entity1));
+		entity4->AddComponent<Velocity>();
+
+		gBehaviourManager.SetBehaviour(entity4, new ApproachBehaviour(entity4, entity1));
+	}
 
 	// ENTITY #5 - Wander
-	Entity* entity5 = EntityManager::CreateEntity();
-	entity5->name = "Wander";
+	for (int i = 0; i < 3; i++)
+	{
+		Entity* entity5 = EntityManager::CreateEntity();
+		entity5->name = "Wander";
 
-	Properties* properties5 = entity5->AddComponent<Properties>();
-	properties5->setDiffuseColour(glm::vec3(0.0f, 1.0f, 1.0f));							// WANDER == CYAN		IDLE == BROWN (150.0f/255.0f, 92.0f, 255.0f, 26.0f/255.0f)
-	properties5->bDontLight = true;
-	properties5->meshName = "Sphere_n_uv.ply";
-	properties5->type = Type::ENEMY;
+		Properties* properties5 = entity5->AddComponent<Properties>();
+		properties5->setDiffuseColour(glm::vec3(0.0f, 1.0f, 1.0f));							// WANDER == CYAN		IDLE == BROWN (150.0f/255.0f, 92.0f, 255.0f, 26.0f/255.0f)
+		properties5->bDontLight = true;
+		properties5->meshName = "Sphere_n_uv.ply";
+		properties5->type = Type::ENEMY;
 
-	Transform* transform5 = entity5->AddComponent<Transform>();
+		float circleRadius = 550.0f;
+		float angle = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (PI * 2)));
+		float x = sin(angle) * circleRadius;
+		float y = cos(angle) * circleRadius;
 
-	transform5->position = glm::vec3(-450.0f, -300.0f, 0.0f);
-	transform5->setUniformScale(15.0f);
-	transform5->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
-	entity5->sphereRadius = transform5->scale.x;
+		Transform* transform5 = entity5->AddComponent<Transform>();
+		transform5->position = glm::vec3(x, y, 0.0f);
+		transform5->setUniformScale(15.0f);
+		transform5->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+		entity5->sphereRadius = transform5->scale.x;
 
-	entity5->AddComponent<Velocity>();
+		entity5->AddComponent<Velocity>();
 
-	gBehaviourManager.SetBehaviour(entity5, new WanderBehaviour(entity5));
+		gBehaviourManager.SetBehaviour(entity5, new WanderBehaviour(entity5));
+	}
 
 	// ENTITY PLAYER BULLETS
-
-	for(int i = 0; i < 10; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		Entity* entity = EntityManager::CreateEntity();
 		entity->name = "playerBullet" + std::to_string(i);
 
 		Properties* properties = entity->AddComponent<Properties>();
-		properties->setDiffuseColour(glm::vec3(194.0f/155.0f, 64.0f/255.0f, 118.0f/255.0f));
+		properties->setDiffuseColour(glm::vec3(194.0f / 155.0f, 64.0f / 255.0f, 118.0f / 255.0f));
 		properties->bDontLight = true;
 		properties->meshName = "Sphere_n_uv.ply";
 		properties->bIsVisible = true;
@@ -189,7 +220,6 @@ void LoadModelsIntoScene()
 
 		Bullets.push_back(entity);
 	}
-
 
 	// ENTITY #10 - Debug Sphere
 	{
