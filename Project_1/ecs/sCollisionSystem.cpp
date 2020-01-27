@@ -57,7 +57,15 @@ void CollisionSystem::Process(const std::vector<Entity*> &entities, float dt)
 							std::cout << entityA->name << " has collided with " << entityB->name << std::endl;
 
 				if (propertyA->type == Type::PLAYER && propertyB->type == Type::ENEMY)
+				{
 					playerTransform->position = glm::vec3(0.0f, 0.0f, 0.0f);
+
+					float circleRadius = 550.0f;
+					float angle = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (PI * 2)));
+					float x = sin(angle) * circleRadius;
+					float y = cos(angle) * circleRadius;
+					transformB->position = glm::vec3(x, y, 0.0f);
+				}
 
 				if (propertyA->type == Type::ENEMY && propertyB->type == Type::BULLET)
 				{

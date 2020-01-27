@@ -89,7 +89,7 @@ void LoadModelsIntoScene()
 	for (int i = 0; i < 3; i++)
 	{
 		Entity* entity2 = EntityManager::CreateEntity();
-		entity2->name = "Seek";
+		entity2->name = "Seek" + std::to_string(i);
 
 		Properties* properties2 = entity2->AddComponent<Properties>();
 		properties2->setDiffuseColour(glm::vec3(1.0f, 0.0f, 0.0f));						// SEEK == RED		FLEE == BLUE
@@ -116,7 +116,7 @@ void LoadModelsIntoScene()
 	for (int i = 0; i < 3; i++)
 	{
 		Entity* entity3 = EntityManager::CreateEntity();
-		entity3->name = "Pursue";
+		entity3->name = "Pursue" + std::to_string(i);
 
 		Properties* properties3 = entity3->AddComponent<Properties>();
 		properties3->setDiffuseColour(glm::vec3(0.0f, 1.0f, 0.0f));							// PURSUE == GREEN		EVADE == YELLOW
@@ -144,7 +144,7 @@ void LoadModelsIntoScene()
 	for (int i = 0; i < 3; i++)
 	{
 		Entity* entity4 = EntityManager::CreateEntity();
-		entity4->name = "Approach";
+		entity4->name = "Approach" + std::to_string(i);
 
 		Properties* properties4 = entity4->AddComponent<Properties>();
 		properties4->setDiffuseColour(glm::vec3(1.0f, 0.0f, 1.0f));							// APPROACH == PURPLE
@@ -172,7 +172,7 @@ void LoadModelsIntoScene()
 	for (int i = 0; i < 3; i++)
 	{
 		Entity* entity5 = EntityManager::CreateEntity();
-		entity5->name = "Wander";
+		entity5->name = "Wander" + std::to_string(i);
 
 		Properties* properties5 = entity5->AddComponent<Properties>();
 		properties5->setDiffuseColour(glm::vec3(0.0f, 1.0f, 1.0f));							// WANDER == CYAN		IDLE == BROWN (150.0f/255.0f, 92.0f, 255.0f, 26.0f/255.0f)
