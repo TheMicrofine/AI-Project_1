@@ -1,9 +1,9 @@
 #include "bPursue.h"
+#include "cTransform.h"
+#include "cVelocity.h"
 
 #include <assert.h>
 
-#include "cTransform.h"
-#include "cVelocity.h"
 
 PursueBehaviour::PursueBehaviour(Entity* agent, Entity* target) : mAgent(agent), mTarget(target)
 {
@@ -22,10 +22,19 @@ void PursueBehaviour::Update(float dt)
 	Transform* agentTransform = mAgent->GetComponent<Transform>();
 	Transform* targetTransform = mTarget->GetComponent<Transform>();
 	Velocity* agentVelocity = mAgent->GetComponent<Velocity>();
+	Velocity* targetVelocity = mTarget->GetComponent<Velocity>();
 
 	if (agentTransform == 0 || targetTransform == 0 || agentVelocity == 0) return;
 
-	glm::vec3 desiredVelocity = glm::normalize(targetTransform->position - agentTransform->position);
+	float magnitude = glm::length(targetTransform->position - agentTransform->position);
+
+	int T = (int)magnitude / (int)MAXVELOCITY;
+
+	glm::vec3 futurePosition;
+	futurePosition.x = targetTransform->position.x + targetVelocity->vx * T;
+	futurePosition.y = targetTransform->position.y + targetVelocity->vy * T;
+
+	glm::vec3 desiredVelocity = glm::normalize(futurePosition - agentTransform->position);
 
 	desiredVelocity *= MAXVELOCITY;
 
@@ -36,10 +45,16 @@ void PursueBehaviour::Update(float dt)
 	agentVelocity->vx += steer.x * dt;
 	agentVelocity->vy += steer.y * dt;
 
-	if (agentVelocity->vx > MAXVELOCITY)
-		agentVelocity->vx = MAXVELOCITY;
+	if (magnitude > MAXVELOCITY)
+	{
+		glm::vec3 normalized = { agentVelocity->vx, agentVelocity->vy, 0 };
 
-	if (agentVelocity->vy > MAXVELOCITY)
-		agentVelocity->vy = MAXVELOCITY;
+		double mag = glm::length(normalized);
+
+		normalized /= mag;
+
+		agentVelocity->vx = normalized.x * MAXVELOCITY;
+		agentVelocity->vy = normalized.y * MAXVELOCITY;
+	}
 }
 

@@ -54,7 +54,4 @@ extern Velocity* playerVelocity;
 
 extern std::vector<Entity*> Bullets;
 
-extern Transform* bulletTransform;
-extern Velocity* bulletVelocity;
-
 #endif	// _globalStuff_HG_

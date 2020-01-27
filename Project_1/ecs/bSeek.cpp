@@ -1,9 +1,9 @@
 #include "bSeek.h"
 #include "bFlee.h"
+#include "../globalStuff.h"
 
 #include <assert.h>
 
-#include "../globalStuff.h"
 
 SeekBehaviour::SeekBehaviour(Entity* agent, Entity* target): mAgent(agent), mTarget(target)
 {
@@ -30,7 +30,10 @@ void SeekBehaviour::Update(float dt)
 	//	gBehaviourManager.SetBehaviour(mAgent, new FleeBehaviour(mAgent, mTarget));
 	//	return;
 	//}
+
 	glm::vec3 desiredVelocity = glm::normalize(targetTransform->position - agentTransform->position);
+
+	float magnitude = glm::length(targetTransform->position - agentTransform->position);
 
 	desiredVelocity *= MAXVELOCITY;
 	
@@ -41,10 +44,16 @@ void SeekBehaviour::Update(float dt)
 	agentVelocity->vx += steer.x * dt;
 	agentVelocity->vy += steer.y * dt;
 
-	if (agentVelocity->vx > MAXVELOCITY)
-		agentVelocity->vx = MAXVELOCITY;
+	if (magnitude > MAXVELOCITY)
+	{
+		glm::vec3 normalized = { agentVelocity->vx, agentVelocity->vy, 0 };
 
-	if (agentVelocity->vy > MAXVELOCITY)
-		agentVelocity->vy = MAXVELOCITY;
+		double mag = glm::length(normalized);
+
+		normalized /= mag;
+
+		agentVelocity->vx = normalized.x * MAXVELOCITY;
+		agentVelocity->vy = normalized.y * MAXVELOCITY;
+	}
 }
 
