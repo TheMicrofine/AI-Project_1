@@ -9,10 +9,10 @@
 
 cCamera::cCamera()
 {
-	this->eye = glm::vec3(0.0f);
+	this->eye = glm::vec3(0.0f, 0.0f, -1500.0f);
 
 	// This will be constant
-	this->m_frontOfCamera = glm::vec3(0.197498f, -0.037099f, 0.979604f);
+	this->m_frontOfCamera = glm::vec3(0.0f, 0.0f, 1.0f);
 
 	this->m_upIsYVector = glm::vec3(0.0f, 1.0f, 0.0f);
 

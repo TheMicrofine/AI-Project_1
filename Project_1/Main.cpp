@@ -37,33 +37,3 @@ int main(void)
 
 	return 0;
 }
-
-
-
-//cMeshObject* findObjectByFriendlyName(std::string theNameToFind)
-//{
-//	for (unsigned int index = 0; index != g_vec_pObjectsToDraw.size(); index++)
-//	{
-//		if (g_vec_pObjectsToDraw[index]->friendlyName == theNameToFind)
-//		{
-//			return g_vec_pObjectsToDraw[index];
-//		}
-//	}
-//
-//	return NULL;
-//}
-//
-//
-//cMeshObject* findObjectByUniqueID(unsigned int ID_to_find)
-//{
-//	for (unsigned int index = 0; index != g_vec_pObjectsToDraw.size(); index++)
-//	{
-//		if (g_vec_pObjectsToDraw[index]->getUniqueID() == ID_to_find)
-//		{
-//			return g_vec_pObjectsToDraw[index];
-//		}
-//	}
-//
-//	return NULL;
-//}
-

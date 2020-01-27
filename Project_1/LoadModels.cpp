@@ -75,7 +75,7 @@ void LoadModelsIntoScene()
 	properties1->type = Type::PLAYER;
 
 	playerTransform = entity1->AddComponent<Transform>();
-	playerTransform->position = glm::vec3(-250.0f, 300.0f, 0.0f);
+	playerTransform->position = glm::vec3(0.0f, 0.0f, 0.0f);
 	playerTransform->setUniformScale(15.0f);
 	playerTransform->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
 	entity1->sphereRadius = playerTransform->scale.x;
@@ -95,7 +95,7 @@ void LoadModelsIntoScene()
 	properties2->type = Type::ENEMY;
 
 	Transform* transform2 = entity2->AddComponent<Transform>();
-	transform2->position = glm::vec3(100.0f, 0.0f, 0.0f);
+	transform2->position = glm::vec3(500.0f, 0.0f, 0.0f);
 	transform2->setUniformScale(15.0f);
 	transform2->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
 	entity2->sphereRadius = transform2->scale.x;
@@ -114,7 +114,7 @@ void LoadModelsIntoScene()
 	properties3->type = Type::ENEMY;
 
 	Transform* transform3 = entity3->AddComponent<Transform>();
-	transform3->position = glm::vec3(-200.0f, 0.0f, 0.0f);
+	transform3->position = glm::vec3(-480.0f, 0.0f, 0.0f);
 	transform3->setUniformScale(15.0f);
 	transform3->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
 	entity3->sphereRadius = transform3->scale.x;
@@ -134,7 +134,7 @@ void LoadModelsIntoScene()
 	properties4->type = Type::ENEMY;
 
 	Transform* transform4 = entity4->AddComponent<Transform>();
-	transform4->position = glm::vec3(-1000.0f, 0.0f, 0.0f);
+	transform4->position = glm::vec3(-40.0f, 500.0f, 0.0f);
 	transform4->setUniformScale(15.0f);
 	transform4->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
 	entity4->sphereRadius = transform4->scale.x;
@@ -155,10 +155,7 @@ void LoadModelsIntoScene()
 
 	Transform* transform5 = entity5->AddComponent<Transform>();
 
-	float xRand = rand() % 515 + (-1160);
-	float yRand = rand() % 630 + (-115);
-
-	transform5->position = glm::vec3(xRand, yRand, 0.0f);
+	transform5->position = glm::vec3(-450.0f, -300.0f, 0.0f);
 	transform5->setUniformScale(15.0f);
 	transform5->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
 	entity5->sphereRadius = transform5->scale.x;

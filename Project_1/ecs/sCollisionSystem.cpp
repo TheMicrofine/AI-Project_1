@@ -12,10 +12,14 @@ struct CollisionPair
 
 	Entity* entityA;
 	Entity* entityB;
+
 };
+
+float const PI = 3.1415926;
 
 void CollisionSystem::Process(const std::vector<Entity*> &entities, float dt)
 {
+
 	Entity* entityA;
 	Entity* entityB;
 
@@ -53,11 +57,16 @@ void CollisionSystem::Process(const std::vector<Entity*> &entities, float dt)
 							std::cout << entityA->name << " has collided with " << entityB->name << std::endl;
 
 				if (propertyA->type == Type::PLAYER && propertyB->type == Type::ENEMY)
-					playerTransform->position = glm::vec3(-250.0f, 300.0f, 0.0f);
+					playerTransform->position = glm::vec3(0.0f, 0.0f, 0.0f);
 
 				if (propertyA->type == Type::ENEMY && propertyB->type == Type::BULLET)
 				{
-					transformA->position = glm::vec3(0.0f, 0.0f, 0.0f);
+					float circleRadius = 550.0f;
+					float angle = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (PI * 2)));
+					float x = sin(angle) * circleRadius; 
+					float y = cos(angle) * circleRadius;
+					
+					transformA->position = glm::vec3(x, y, 0.0f);
 					transformB->position = glm::vec3(-2500.0f, 300.0f, 0.0f);
 					velocityB->vx = 0.0f;
 					velocityB->vy = 0.0f;

@@ -124,7 +124,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)	// "right"
 	{
-		std::cout << playerTransform->position.x << " " << playerTransform->position.y << " " << playerTransform->position.z;
+		std::cout << playerTransform->position.x << " " << playerTransform->position.y << " " << playerTransform->position.z << std::endl;
 	}
 
 	// Light controls

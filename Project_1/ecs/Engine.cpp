@@ -10,6 +10,10 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
 cDebugRenderer* g_pDebugRendererACTUAL = NULL;
 iDebugRenderer* g_pDebugRenderer = NULL;
 
@@ -62,7 +66,7 @@ int Engine::Initialize(void)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
-	window = glfwCreateWindow(1700, 900, "Project 1", NULL, NULL);
+	window = glfwCreateWindow(1000, 1000, "Project 1", NULL, NULL);
 
 	if (!window)
 	{
@@ -146,13 +150,14 @@ int Engine::Initialize(void)
 	}
 
 	::g_pCamera = new cCamera();
-	g_pCamera->eye = { -708.195f, 308.372f, -1430.14f };
 
 	CreateLights(program);
 	pLightHelper = new cLightHelper();
 
 	LoadModelTypes(::g_pVAOMeshManager, program);
 	LoadModelsIntoScene();
+
+	srand(time(NULL));
 
 	return 0;
 }
