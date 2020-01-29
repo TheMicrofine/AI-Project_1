@@ -52,6 +52,6 @@ extern double startTime;
 extern Transform* playerTransform;
 extern Velocity* playerVelocity;
 
-extern std::vector<Entity*> Bullets;
+extern std::vector<Entity*> g_bullets;
 
 #endif	// _globalStuff_HG_

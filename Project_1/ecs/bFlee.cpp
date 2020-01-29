@@ -24,6 +24,25 @@ void FleeBehaviour::Update(float dt)
 
 	if (agentTransform == 0 || targetTransform == 0 || agentVelocity == 0) return;
 
+	glm::vec3 agentForward = agentTransform->orientation * glm::vec3(0.0f, 0.0f, 1.0f);
+
+
+	//glm::vec3 targetForward = targetTransform->orientation * glm::vec3(0.0f, 0.0f, 1.0f);
+
+	//float result = glm::dot(agentForward, targetForward);
+
+		//Results
+		//Case #1: -1
+		//Vectors are opposite of each other
+		//Case #2: 1
+		//Vectors are identical
+		//Case #3: 0
+		//Vectors are perpendicular
+		//Case #4: > 0
+		//Facing away
+		//Case #5: 0 < &< 1
+		//Facing towards same plane
+
 	//if (mTarget IS LOOKING AT mAgent)
 	//{
 	//	gBehaviourManager.SetBehaviour(mAgent, new SeekBehaviour(mAgent, mTarget));

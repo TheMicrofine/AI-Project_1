@@ -7,7 +7,6 @@
 // Ctrl				Model controls
 // Alt				Light controls
 
-
 bool xPos = false;
 bool xNeg = false;
 bool yPos = false;
@@ -56,8 +55,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
 	}
 
-
-
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
 		playerVelocity->vy = 3.0f;
@@ -81,7 +78,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		playerVelocity->vy = 0.0f;
 		yNeg = false;
 	}
-
 
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)	// "left"
 	{
@@ -109,13 +105,15 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
-		if (bulletCount >= 9)
-			bulletCount = 0;
+		//if (bulletCount >= 9)
+		//	bulletCount = 0;
 
-		bulletCount++;
+		//bulletCount++;
 
-		transform = Bullets.at(bulletCount)->GetComponent<Transform>();
-		velocity = Bullets.at(bulletCount)->GetComponent<Velocity>();
+		bulletCount = 0;
+
+		transform = g_bullets.at(bulletCount)->GetComponent<Transform>();
+		velocity = g_bullets.at(bulletCount)->GetComponent<Velocity>();
 
 		transform->position = playerTransform->position;
 		velocity->vx = playerVelocity->vx * 1.4f;

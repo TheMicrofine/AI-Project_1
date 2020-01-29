@@ -14,10 +14,11 @@ public:
 
 private:
 	Entity* mAgent;
-	bool isWandering;
-	bool isIdling;
-	float xPosition;
-	float yPosition;
+	bool mIsWandering;
+	bool mIsIdling;
+	float mXPosition;
+	float mYPosition;
+	float mStartIdleTime;
 };
 
 #endif

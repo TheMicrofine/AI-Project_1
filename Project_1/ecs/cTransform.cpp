@@ -9,6 +9,7 @@ Transform::Transform()
 	this->position = glm::vec3(0.0f);
 	this->scale = glm::vec3(1.0f);
 	this->orientation = glm::quat((glm::vec3(0.0f, 0.0f, 0.0f)));
+	this->sphereRadius = 1.0f;
 }
 
 void Transform::setUniformScale(float scale)

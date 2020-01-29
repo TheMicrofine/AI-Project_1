@@ -15,6 +15,8 @@ public:
 private:
 	Entity* mAgent;
 	Entity* mTarget;
+
+	float const LINEOFSIGHTRANGE = 150.0f;
 };
 
 #endif

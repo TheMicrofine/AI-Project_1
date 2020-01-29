@@ -21,7 +21,6 @@ public:
 	unsigned int id;							// id of the entity
 	std::string name;							// name of the entity
 	std::vector<Component*> components;			// Container of components attached to the entity
-	float sphereRadius;
 };
 
 typedef std::vector<Entity*>::iterator entity_iterator;

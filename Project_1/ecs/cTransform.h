@@ -19,6 +19,7 @@ public:
 	glm::vec3 position;
 	glm::vec3 scale;
 	glm::quat orientation;
+	float sphereRadius;
 
 	void setUniformScale(float scale);
 	glm::quat getQOrientation(void);

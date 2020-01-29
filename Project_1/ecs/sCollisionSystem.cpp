@@ -49,7 +49,7 @@ void CollisionSystem::Process(const std::vector<Entity*> &entities, float dt)
 			propertyB = entityB->GetComponent<Properties>();
 			velocityB = entityB->GetComponent<Velocity>();
 
-			if (TestSphereSphereCollision(transformA->position, entityA->sphereRadius, transformB->position, entityB->sphereRadius))
+			if (TestSphereSphereCollision(transformA->position, transformA->sphereRadius, transformB->position, transformB->sphereRadius))
 			{
 				if(!(propertyA->type == Type::PLAYER && propertyB->type == Type::BULLET))
 					if(!(propertyA->type == Type::ENEMY && propertyB->type == Type::ENEMY))

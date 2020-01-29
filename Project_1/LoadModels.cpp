@@ -11,7 +11,7 @@ Velocity* playerVelocity;
 Transform* bulletTransform;
 Velocity* bulletVelocity;
 
-std::vector<Entity*> Bullets;
+std::vector<Entity*> g_bullets;
 float const PI = 3.1415926;
 
 // Loading models was moved into this function
@@ -62,7 +62,7 @@ void LoadModelsIntoScene()
 	transform->position = glm::vec3(0.0f, 0.0f, 0.0f);
 	transform->setUniformScale(5000.0f);
 	transform->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
-	entity->sphereRadius *= transform->scale.x;
+	transform->sphereRadius *= transform->scale.x;
 
 
 	// ENTITY #1 - The Player
@@ -79,7 +79,7 @@ void LoadModelsIntoScene()
 	playerTransform->position = glm::vec3(0.0f, 0.0f, 0.0f);
 	playerTransform->setUniformScale(15.0f);
 	playerTransform->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
-	entity1->sphereRadius = playerTransform->scale.x;
+	playerTransform->sphereRadius = playerTransform->scale.x;
 
 	playerVelocity = entity1->AddComponent<Velocity>();
 	entity1->AddComponent<Velocity>();
@@ -106,14 +106,14 @@ void LoadModelsIntoScene()
 		transform2->position = glm::vec3(x, y, 0.0f);
 		transform2->setUniformScale(15.0f);
 		transform2->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
-		entity2->sphereRadius = transform2->scale.x;
+		transform2->sphereRadius = transform2->scale.x;
 
 		entity2->AddComponent<Velocity>();
 		gBehaviourManager.SetBehaviour(entity2, new SeekBehaviour(entity2, entity1));
 	}
 
 	// ENTITY #3 - Pursue
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		Entity* entity3 = EntityManager::CreateEntity();
 		entity3->name = "Pursue" + std::to_string(i);
@@ -133,7 +133,7 @@ void LoadModelsIntoScene()
 		transform3->position = glm::vec3(x, y, 0.0f);
 		transform3->setUniformScale(15.0f);
 		transform3->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
-		entity3->sphereRadius = transform3->scale.x;
+		transform3->sphereRadius = transform3->scale.x;
 
 		entity3->AddComponent<Velocity>();
 
@@ -161,7 +161,7 @@ void LoadModelsIntoScene()
 		transform4->position = glm::vec3(x, y, 0.0f);
 		transform4->setUniformScale(15.0f);
 		transform4->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
-		entity4->sphereRadius = transform4->scale.x;
+		transform4->sphereRadius = transform4->scale.x;
 
 		entity4->AddComponent<Velocity>();
 
@@ -175,7 +175,7 @@ void LoadModelsIntoScene()
 		entity5->name = "Wander" + std::to_string(i);
 
 		Properties* properties5 = entity5->AddComponent<Properties>();
-		properties5->setDiffuseColour(glm::vec3(0.0f, 1.0f, 1.0f));							// WANDER == CYAN		IDLE == BROWN (150.0f/255.0f, 92.0f, 255.0f, 26.0f/255.0f)
+		properties5->setDiffuseColour(glm::vec3(0.0f, 1.0f, 1.0f));							// WANDER == CYAN		IDLE == ORANGE
 		properties5->bDontLight = true;
 		properties5->meshName = "Sphere_n_uv.ply";
 		properties5->type = Type::ENEMY;
@@ -189,7 +189,7 @@ void LoadModelsIntoScene()
 		transform5->position = glm::vec3(x, y, 0.0f);
 		transform5->setUniformScale(15.0f);
 		transform5->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
-		entity5->sphereRadius = transform5->scale.x;
+		transform5->sphereRadius = transform5->scale.x;
 
 		entity5->AddComponent<Velocity>();
 
@@ -197,7 +197,7 @@ void LoadModelsIntoScene()
 	}
 
 	// ENTITY PLAYER BULLETS
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		Entity* entity = EntityManager::CreateEntity();
 		entity->name = "playerBullet" + std::to_string(i);
@@ -214,11 +214,11 @@ void LoadModelsIntoScene()
 		transform->position = glm::vec3(-2500.0f, 300.0f, 0.0f);
 		transform->setUniformScale(10.0f);
 		transform->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
-		entity->sphereRadius = transform->scale.x;
+		transform->sphereRadius = transform->scale.x;
 
 		entity->AddComponent<Velocity>();
 
-		Bullets.push_back(entity);
+		g_bullets.push_back(entity);
 	}
 
 	// ENTITY #10 - Debug Sphere
