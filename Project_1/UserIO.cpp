@@ -55,54 +55,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
 	}
 
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-	{
-		playerVelocity->vy = 3.0f;
-		yPos = true;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_RELEASE && yPos == true)
-	{
-		playerVelocity->vy = 0.0f;
-		yPos = false;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)	// "backwards"
-	{
-		playerVelocity->vy = -3.0f;
-		yNeg = true;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_RELEASE && yNeg == true)
-	{
-		playerVelocity->vy = 0.0f;
-		yNeg = false;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)	// "left"
-	{
-		playerVelocity->vx = 3.0f;
-		xPos = true;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_RELEASE && xPos)	// "left"
-	{
-		playerVelocity->vx = 0.0f;
-		xPos = false;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)	// "right"
-	{
-		playerVelocity->vx = -3.0f;
-		xNeg = true;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_RELEASE && xNeg)	// "right"
-	{
-		playerVelocity->vx = 0.0f;
-		xNeg = false;
-	}
-
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
 		//if (bulletCount >= 9)
@@ -164,6 +116,57 @@ void ProcessAsyncKeys(GLFWwindow* window)
 	// If no keys are down, move the camera
 	if (AreAllModifiersUp(window))
 	{
+		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		{
+			playerVelocity->vy = (glm::vec3(0, 3.0f, 0) * glm::toMat3(playerTransform->orientation)).y;
+			playerVelocity->vx = (glm::vec3(0, 3.0f, 0) * glm::toMat3(playerTransform->orientation)).x;
+			yPos = true;
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_RELEASE && yPos == true)
+		{
+			playerVelocity->vy = 0.0f;
+			yPos = false;
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)	// "backwards"
+		{
+			playerVelocity->vy = (glm::vec3(0, -3.0f, 0) * glm::toMat3(playerTransform->orientation)).y;
+			playerVelocity->vx = (glm::vec3(0, -3.0f, 0) * glm::toMat3(playerTransform->orientation)).x;
+			yNeg = true;
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_RELEASE && yNeg == true)
+		{
+			playerVelocity->vy = 0.0f;
+			yNeg = false;
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)	// "left"
+		{
+			playerTransform->adjMeshOrientationEulerAngles(glm::vec3(0, 0, 3), true);
+			xPos = true;
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_RELEASE && xPos)	// "left"
+		{
+			playerVelocity->vx = 0.0f;
+			xPos = false;
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)	// "right"
+		{
+			playerTransform->adjMeshOrientationEulerAngles(glm::vec3(0, 0, -3), true);
+			xNeg = true;
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_RELEASE && xNeg)	// "right"
+		{
+			playerVelocity->vx = 0.0f;
+			xNeg = false;
+		}
+
+
 
 	}//if(AreAllModifiersUp(window)
 

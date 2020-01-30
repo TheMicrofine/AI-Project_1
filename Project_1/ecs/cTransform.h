@@ -23,6 +23,7 @@ public:
 
 	void setUniformScale(float scale);
 	glm::quat getQOrientation(void);
+	void adjMeshOrientationEulerAngles(glm::vec3 adjAngleEuler, bool bIsDegrees/*=false*/);
 };
 
 extern const glm::vec3 UP;

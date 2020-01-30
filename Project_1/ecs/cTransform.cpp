@@ -21,3 +21,16 @@ glm::quat Transform::getQOrientation(void)
 { 
 	return this->orientation;
 };
+
+void Transform::adjMeshOrientationEulerAngles(glm::vec3 adjAngleEuler, bool bIsDegrees/*=false*/) {
+	if (bIsDegrees) {
+		adjAngleEuler = glm::vec3(glm::radians(adjAngleEuler.x), glm::radians(adjAngleEuler.y), glm::radians(adjAngleEuler.z));
+	}
+
+	// Step 1: make a quaternion that represents the angle we want to rotate
+	glm::quat rotationAdjust(adjAngleEuler);
+
+	// Step 2: Multiply this quaternion by the existing quaternion. This "adds" the angle we want.
+	this->orientation *= rotationAdjust;
+	return;
+}
