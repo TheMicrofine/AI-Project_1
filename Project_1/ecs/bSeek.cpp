@@ -59,11 +59,11 @@ void SeekBehaviour::Update(float dt)
 
 	agentTransform->orientation = orientation;
 
-	//agentVelocity->vx += steer.x * dt;
-	//agentVelocity->vy += steer.y * dt;
+	agentVelocity->vx += steer.x * dt;
+	agentVelocity->vy += steer.y * dt;
 
-	agentVelocity->vx = 0;
-	agentVelocity->vy = 0;
+	//agentVelocity->vx = 0;
+	//agentVelocity->vy = 0;
 
 	if (magnitude > MAXVELOCITY)
 	{

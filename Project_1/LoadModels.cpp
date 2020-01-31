@@ -8,8 +8,6 @@
 
 Transform* playerTransform;
 Velocity* playerVelocity;
-Transform* bulletTransform;
-Velocity* bulletVelocity;
 
 std::vector<Entity*> g_bullets;
 float const PI = 3.1415926;
@@ -21,7 +19,7 @@ void LoadModelTypes(cVAOMeshManager* pTheVAOMeshManager, GLuint shaderProgramID)
 	sphereInfo.meshFileName = "Sphere_n_uv.ply";
 	pTheVAOMeshManager->LoadModelIntoVAO(sphereInfo, shaderProgramID);
 
-	sModelDrawInfo sphereInfo;
+	sModelDrawInfo spherePointInfo;
 	sphereInfo.meshFileName = "SpherePoint_n_uv.ply";
 	pTheVAOMeshManager->LoadModelIntoVAO(sphereInfo, shaderProgramID);
 
@@ -109,7 +107,7 @@ void LoadModelsIntoScene()
 		Transform* transform2 = entity2->AddComponent<Transform>();
 		transform2->position = glm::vec3(x, y, 0.0f);
 		transform2->setUniformScale(15.0f);
-		transform2->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+		transform2->orientation = glm::quat(0.0f, 1.0f, 0.0f, 0.0f);
 		transform2->sphereRadius = transform2->scale.x;
 
 		entity2->AddComponent<Velocity>();
