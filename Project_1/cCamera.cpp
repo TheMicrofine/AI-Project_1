@@ -61,7 +61,7 @@ void cCamera::setCameraAt(glm::vec3 at)
 void cCamera::MoveForward_Z(float amount)
 {
 	// We take the vector from the at to eye (i.e. direction)
-	// Add this forward velocity along this direction.
+	// Add this forward bulletVelocity along this direction.
 
 	glm::vec3 direction = this->getAtInWorldSpace() - this->eye;
 

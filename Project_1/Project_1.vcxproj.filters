@@ -40,9 +40,6 @@
     <Filter Include="Shader Stuff\Shaders">
       <UniqueIdentifier>{c2370e7f-a6f3-4c7e-bfa6-ef03c8b14bfa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="TextureManager">
-      <UniqueIdentifier>{bdcadb7c-35d0-43da-af64-b6f136795845}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utilities">
       <UniqueIdentifier>{4aa629a1-17de-4c05-ada0-50af1bc754d5}</UniqueIdentifier>
     </Filter>
@@ -54,6 +51,9 @@
     </Filter>
     <Filter Include="ECS\Component">
       <UniqueIdentifier>{97b52745-a9ab-495d-93ca-04df490adff0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TextureManager">
+      <UniqueIdentifier>{bdcadb7c-35d0-43da-af64-b6f136795845}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -97,13 +97,13 @@
       <Filter>Utilities</Filter>
     </ClCompile>
     <ClCompile Include="C24BitBMPpixel.cpp">
-      <Filter>TextureManager</Filter>
+      <Filter>Source Files\TextureManager</Filter>
     </ClCompile>
     <ClCompile Include="cBasicTextureManager.cpp">
-      <Filter>TextureManager</Filter>
+      <Filter>Source Files\TextureManager</Filter>
     </ClCompile>
     <ClCompile Include="CTextureFromBMP.cpp">
-      <Filter>TextureManager</Filter>
+      <Filter>Source Files\TextureManager</Filter>
     </ClCompile>
     <ClCompile Include="CreateLights.cpp">
       <Filter>Source Files</Filter>
@@ -216,13 +216,13 @@
       <Filter>Utilities</Filter>
     </ClInclude>
     <ClInclude Include="C24BitBMPpixel.h">
-      <Filter>TextureManager</Filter>
+      <Filter>Source Files\TextureManager</Filter>
     </ClInclude>
     <ClInclude Include="cBasicTextureManager.h">
-      <Filter>TextureManager</Filter>
+      <Filter>Source Files\TextureManager</Filter>
     </ClInclude>
     <ClInclude Include="CTextureFromBMP.h">
-      <Filter>TextureManager</Filter>
+      <Filter>Source Files\TextureManager</Filter>
     </ClInclude>
     <ClInclude Include="linmath.h">
       <Filter>Source Files</Filter>

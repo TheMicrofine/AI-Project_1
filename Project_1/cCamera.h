@@ -9,7 +9,7 @@ class cCamera
 {
 public:
 	cCamera();
-	// Use these to allow us to use the LookAt() transform
+	// Use these to allow us to use the LookAt() bulletTransform
 	glm::vec3 eye;
 private:
 	glm::vec3 m_at;			// A direction, not a location

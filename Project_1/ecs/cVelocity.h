@@ -11,7 +11,7 @@ struct Velocity : public Component
 
 	virtual ~Velocity(void) { }
 
-	float vx, vy;		// velocity in m/s
+	float vx, vy;		// bulletVelocity in m/s
 	float ax, ay;		// acceleration in m/s^2
 };
 
