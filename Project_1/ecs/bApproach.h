@@ -15,6 +15,7 @@ public:
 private:
 	Entity* mAgent;
 	Entity* mTarget;
+	Entity* mBullet;
 
 	float const SLOWINGRADIUS = 400.0f;
 	float const MAINTAINRADUIS = 150.0f;

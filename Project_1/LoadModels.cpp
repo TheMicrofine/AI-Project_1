@@ -21,6 +21,10 @@ void LoadModelTypes(cVAOMeshManager* pTheVAOMeshManager, GLuint shaderProgramID)
 	sphereInfo.meshFileName = "Sphere_n_uv.ply";
 	pTheVAOMeshManager->LoadModelIntoVAO(sphereInfo, shaderProgramID);
 
+	sModelDrawInfo sphereInfo;
+	sphereInfo.meshFileName = "SpherePoint_n_uv.ply";
+	pTheVAOMeshManager->LoadModelIntoVAO(sphereInfo, shaderProgramID);
+
 	sModelDrawInfo sphereInvertedNormalsInfo;
 	sphereInvertedNormalsInfo.meshFileName = "Sphere_n_uv_INVERTED_NORMALS.ply";
 	pTheVAOMeshManager->LoadModelIntoVAO(sphereInvertedNormalsInfo, shaderProgramID);
@@ -72,7 +76,7 @@ void LoadModelsIntoScene()
 	Properties* properties1 = entity1->AddComponent<Properties>();
 	properties1->setDiffuseColour(glm::vec3(0.0f, 0.0f, 0.0f));
 	properties1->bDontLight = true;
-	properties1->meshName = "Sphere_n_uv.ply";
+	properties1->meshName = "SpherePoint_n_uv.ply";
 	properties1->type = Type::PLAYER;
 
 	playerTransform = entity1->AddComponent<Transform>();

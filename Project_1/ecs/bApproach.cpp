@@ -3,6 +3,7 @@
 #include "cVelocity.h"
 
 #include <assert.h>
+#include <ctime>
 
 ApproachBehaviour::ApproachBehaviour(Entity* agent, Entity* target) : mAgent(agent), mTarget(target)
 {
@@ -46,6 +47,11 @@ void ApproachBehaviour::Update(float dt)
 	{
 		agentVelocity->vx = 0;
 		agentVelocity->vy = 0;
+
+		// shoot mans
+		float currentTime = std::clock();
+
+
 	}
 	else
 	{
