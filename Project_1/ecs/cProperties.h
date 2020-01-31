@@ -18,7 +18,8 @@ enum class Type
 {
 	PLAYER,
 	ENEMY,
-	BULLET
+	BULLET,
+	EBULLET
 };
 
 class Properties : public Component
