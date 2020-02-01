@@ -55,6 +55,9 @@
     <Filter Include="Source Files\TextureManager">
       <UniqueIdentifier>{bdcadb7c-35d0-43da-af64-b6f136795845}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ECS\System">
+      <UniqueIdentifier>{f2cfb5e5-0130-4fd4-98c2-e58a4f9d4bfa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cCamera.cpp">
@@ -141,15 +144,6 @@
     <ClCompile Include="ecs\EntityManager.cpp">
       <Filter>ECS</Filter>
     </ClCompile>
-    <ClCompile Include="ecs\sCollisionSystem.cpp">
-      <Filter>ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="ecs\sMotionSystem.cpp">
-      <Filter>ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="ecs\sObstacleSystem.cpp">
-      <Filter>ECS</Filter>
-    </ClCompile>
     <ClCompile Include="ecs\bApproach.cpp">
       <Filter>ECS\Behaviour</Filter>
     </ClCompile>
@@ -164,6 +158,15 @@
     </ClCompile>
     <ClCompile Include="ecs\bFlee.cpp">
       <Filter>ECS\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\sCollisionSystem.cpp">
+      <Filter>ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\sMotionSystem.cpp">
+      <Filter>ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\sObstacleSystem.cpp">
+      <Filter>ECS\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -257,18 +260,6 @@
     <ClInclude Include="ecs\EntityManager.h">
       <Filter>ECS</Filter>
     </ClInclude>
-    <ClInclude Include="ecs\sCollisionSystem.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="ecs\sMotionSystem.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="ecs\sObstacleSystem.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="ecs\System.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
     <ClInclude Include="ecs\bApproach.h">
       <Filter>ECS\Behaviour</Filter>
     </ClInclude>
@@ -283,6 +274,18 @@
     </ClInclude>
     <ClInclude Include="ecs\bFlee.h">
       <Filter>ECS\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\sCollisionSystem.h">
+      <Filter>ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\sMotionSystem.h">
+      <Filter>ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\sObstacleSystem.h">
+      <Filter>ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\System.h">
+      <Filter>ECS\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

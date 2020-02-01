@@ -16,45 +16,79 @@ bool LineIntersectingCircle(glm::vec3& lineOfSight, glm::vec3& lineOfSightHalf, 
 	Transform* bulletTransform = bullet->GetComponent<Transform>();
 
 	bool isCollideA = glm::length(bulletTransform->position - lineOfSight) < bulletTransform->sphereRadius;
-	//std::cout << "COLLIDE A " << glm::length(bulletTransform->position - lineOfSight) << std::endl;
-//	std::cout << "COLLIDE A " << isCollideA << std::endl;
 
 	bool isCollideB = glm::length(bulletTransform->position - lineOfSightHalf) < bulletTransform->sphereRadius;
-//	std::cout << "COLLIDE B " << isCollideB << std::endl;
-	//std::cout << "COLLIDE B " << glm::length(bulletTransform->position - lineOfSightHalf) << std::endl;
 
-	return (isCollideA || isCollideB);
-}
-
-bool ObstacleDetection(std::vector<Entity*>& bullets, glm::vec3& lineOfSight, glm::vec3& lineOfSightHalf, glm::vec3& threatPos, glm::vec3 agentPos)
+bool PursueBehaviour::BulletDetection(glm::vec3& closestBulletAvoidanceVector)
 {
-	bool bIsThereAThreat = false;
-	for (Entity* e : bullets)
+	Transform* agentTransform = mAgent->GetComponent<Transform>();
+	Velocity* agentVelocity = mAgent->GetComponent<Velocity>();
+
+	Entity* closestBullet = 0;
+	Transform* closestBulletTransform;
+
+	float closestBulletDistance = FLT_MAX;
+
+	if (agentTransform == 0 || agentVelocity == 0) return false;
+
+	glm::vec3 velocity = glm::vec3(agentVelocity->vx, agentVelocity->vy, 0.0f);
+	if (glm::length(velocity) == 0.0f) return false;
+
+	for (Entity* e : g_bullets)
 	{
-		bool bIsCollision = LineIntersectingCircle(lineOfSight, lineOfSightHalf, e);
-
-		//std::cout << bIsCollision << std::endl;
-
 		Transform* bulletTransform = e->GetComponent<Transform>();
-		glm::vec3 bulletPos = bulletTransform->position;
 
-	//	std::cout << "a pos " << agentPos.x << " b pos " << bulletPos.x << std::endl;
+		if (bulletTransform == 0) continue;
 
-		float distanceAB = glm::length(agentPos - bulletPos);
+		glm::vec3 close = agentTransform->position + velocity * 2.0f;
+		glm::vec3 away = agentTransform->position + velocity * 50.0f;
 
-		float distanceAT = glm::length(agentPos - threatPos);
+		float point;
+		glm::vec3 closestPoint;
 
-	//	std::cout << "distanceAB = " << distanceAB << " distanceAT " << distanceAT << std::endl;
+		ClosestPtPointSegment(bulletTransform->position, away, close, point, closestPoint);
 
-		if(bIsCollision && ((threatPos == glm::vec3(0.0, 0.0, 0.0) || distanceAB < distanceAT)))
+		float distance = glm::length(closestPoint - bulletTransform->position);
+		if (distance > bulletTransform->sphereRadius + 20.0f) continue;
+
+		if (distance < closestBulletDistance)
 		{
-			std::cout << "THERE IS A THREAT" << std::endl;
-			threatPos = bulletPos;
-			bIsThereAThreat = true;
+			// Set the obstacle as the closest.
+			closestBullet = e;
+			closestBulletTransform = bulletTransform;
+			if (glm::length(closestPoint - bulletTransform->position) == 0.0f) {
+				// This needs to be handled. The obstacle is directly ahead of the agent
+				// Which means there will be no avoidance direction to go.
+				assert(0 && "This needs to be handled. The obstacle is directly ahead of the agent. Which means there will be no avoidance direction to go");
+			}
+
+			glm::vec3 avoidanceVector = glm::normalize(closestPoint - bulletTransform->position);
+			closestBulletAvoidanceVector = avoidanceVector;
 		}
 	}
 
-	return bIsThereAThreat;
+	if (closestBullet != 0)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+// Christer Ericson - Real Time Collision Detection
+// Section 5.1.2:
+// Given segment ab and point c, computes closest point d on ab.
+// Also returns t for the position of d, d(t) = a + t*(b - a)
+void PursueBehaviour::ClosestPtPointSegment(glm::vec3 c, glm::vec3 a, glm::vec3 b, float& t, glm::vec3& d)
+{
+	glm::vec3 ab = b - a;
+	// Project c onto ab, computing parameterized position d(t) = a + t*(b – a)
+	t = glm::dot(c - a, ab) / glm::dot(ab, ab);
+	// If outside segment, clamp t (and therefore d) to the closest endpoint
+	if (t < 0.0f) t = 0.0f;
+	if (t > 1.0f) t = 1.0f;
+	// Compute projected position from the clamped t
+	d = a + t * ab;
 }
 
 void PursueBehaviour::Update(float dt)
@@ -85,33 +119,34 @@ void PursueBehaviour::Update(float dt)
 
 	glm::vec3 agentVel = glm::vec3(agentVelocity->vx, agentVelocity->vy, 0);
 
-	glm::vec3 lineOfSight = agentTransform->position + glm::normalize(agentVel) * LINEOFSIGHTRANGE;
+	//glm::vec3 lineOfSight = agentTransform->position + glm::normalize(agentVel) * LINEOFSIGHTRANGE;
 
-	glm::vec3 lineOfSightHalf = agentTransform->position + glm::normalize(agentVel) * LINEOFSIGHTRANGE * 0.5f;
+	//glm::vec3 lineOfSightHalf = agentTransform->position + glm::normalize(agentVel) * LINEOFSIGHTRANGE * 0.5f;
 
-	glm::vec3 threatPos = glm::vec3(0.0, 0.0, 0.0);
+	//glm::vec3 threatPos = glm::vec3(0.0, 0.0, 0.0);
 
-	bool bIsThreatDetected = ObstacleDetection(g_bullets, lineOfSight, lineOfSightHalf, threatPos, agentTransform->position);
-	//bool bIsThreatDetected = ObstacleDetection(g_bullets, agentTransform->position, threatPos);
+	//bool bIsThreatDetected = BulletDetection(g_bullets, lineOfSight, lineOfSightHalf, threatPos, agentTransform->position);
+	//bool bIsThreatDetected = BulletDetection(g_bullets, agentTransform->position, threatPos);
+	glm::vec3 avoidanceVector = glm::vec3(0.0f, 0.0f, 0.0f);
+	bool bIsThreatDetected = BulletDetection(avoidanceVector);
 
 	glm::vec3 steer;
 
 	if (bIsThreatDetected)
 	{
 		agentProperties->setDiffuseColour(glm::vec3(1.0f, 1.0f, 0.0f));
-		steer = lineOfSight - threatPos;
-		steer = glm::normalize(steer);
-		steer *= MAXVELOCITY;
+		agentVelocity->vx = (agentVelocity->vx + avoidanceVector.x);
+		agentVelocity->vy = (agentVelocity->vy + avoidanceVector.y);
 	}
 	else
 	{
 		agentProperties->setDiffuseColour(glm::vec3(0.0f, 1.0f, 0.0f));
 		steer.x = desiredVelocity.x - agentVelocity->vx;
 		steer.y = desiredVelocity.y - agentVelocity->vy;
+		
+		agentVelocity->vx += steer.x * dt;
+		agentVelocity->vy += steer.y * dt;
 	}
-
-	agentVelocity->vx += steer.x * dt;
-	agentVelocity->vy += steer.y * dt;
 
 	if (magnitude > MAXVELOCITY)
 	{

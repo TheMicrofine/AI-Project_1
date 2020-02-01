@@ -20,8 +20,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 		bulletCount++;
 
-		//bulletCount = 0;
-
 		Transform* bulletTransform = g_bullets.at(bulletCount)->GetComponent<Transform>();
 		Velocity* bulletVelocity = g_bullets.at(bulletCount)->GetComponent<Velocity>();
 
