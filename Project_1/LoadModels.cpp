@@ -20,8 +20,8 @@ void LoadModelTypes(cVAOMeshManager* pTheVAOMeshManager, GLuint shaderProgramID)
 	pTheVAOMeshManager->LoadModelIntoVAO(sphereInfo, shaderProgramID);
 
 	sModelDrawInfo spherePointInfo;
-	sphereInfo.meshFileName = "SpherePoint_n_uv.ply";
-	pTheVAOMeshManager->LoadModelIntoVAO(sphereInfo, shaderProgramID);
+	spherePointInfo.meshFileName = "SpherePoint_n_uv.ply";
+	pTheVAOMeshManager->LoadModelIntoVAO(spherePointInfo, shaderProgramID);
 
 	sModelDrawInfo sphereInvertedNormalsInfo;
 	sphereInvertedNormalsInfo.meshFileName = "Sphere_n_uv_INVERTED_NORMALS.ply";
@@ -166,6 +166,18 @@ void LoadModelsIntoScene()
 		transform4->sphereRadius = transform4->scale.x;
 
 		entity4->AddComponent<Velocity>();
+
+		//Entity* mBullet = EntityManager::CreateEntity();
+		//mBullet->name = "Approach_Bullet";
+
+		//Properties* properties = mBullet->AddComponent<Properties>();
+		//properties->setDiffuseColour(glm::vec3(0.0f, 0.0f, 0.0f));
+		//properties->bDontLight = true;
+		//properties->meshName = "Sphere_n_uv.ply";
+		//properties->type = Type::EBULLET;
+
+		//mBullet->AddComponent<Transform>();
+		//mBullet->AddComponent<Velocity>();
 
 		gBehaviourManager.SetBehaviour(entity4, new ApproachBehaviour(entity4, entity1));
 	}

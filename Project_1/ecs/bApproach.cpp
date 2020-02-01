@@ -5,6 +5,8 @@
 #include <assert.h>
 #include <ctime>
 
+float const PI = 3.1415926;
+
 ApproachBehaviour::ApproachBehaviour(Entity* agent, Entity* target) : mAgent(agent), mTarget(target)
 {
 }
@@ -22,6 +24,7 @@ void ApproachBehaviour::Update(float dt)
 	Transform* agentTransform = mAgent->GetComponent<Transform>();
 	Transform* targetTransform = mTarget->GetComponent<Transform>();
 	Velocity* agentVelocity = mAgent->GetComponent<Velocity>();
+	//Velocity* bulletVelocity = mBullet->GetComponent<Velocity>();
 
 	if (agentTransform == 0 || targetTransform == 0 || agentVelocity == 0) return;
 
@@ -49,7 +52,30 @@ void ApproachBehaviour::Update(float dt)
 		agentVelocity->vy = 0;
 
 		// shoot mans
-		float currentTime = std::clock();
+		//float currentTime = std::clock();
+		//
+		//glm::vec3 desiredVelocity = glm::normalize(targetTransform->position - agentTransform->position);
+		//float magnitude = glm::length(targetTransform->position - agentTransform->position);
+		//desiredVelocity *= MAXVELOCITY;
+
+		//glm::vec3 steer;
+		//steer.x = desiredVelocity.x - bulletVelocity->vx;
+		//steer.y = desiredVelocity.y - bulletVelocity->vy;
+
+		//bulletVelocity->vx += steer.x * dt;
+		//bulletVelocity->vy += steer.y * dt;
+
+		//if (magnitude > MAXVELOCITY)
+		//{
+		//	glm::vec3 normalized = { bulletVelocity->vx, bulletVelocity->vy, 0 };
+
+		//	double mag = glm::length(normalized);
+
+		//	normalized /= mag;
+
+		//	bulletVelocity->vx = normalized.x * MAXVELOCITY;
+		//	bulletVelocity->vy = normalized.y * MAXVELOCITY;
+		//}
 
 
 	}
@@ -60,6 +86,9 @@ void ApproachBehaviour::Update(float dt)
 
 		agentVelocity->vx += steer.x * dt;
 		agentVelocity->vy += steer.y * dt;
+
+		//bulletVelocity->vx += steer.x * dt;
+		//bulletVelocity->vy += steer.y * dt;
 	}
 
 	if (agentVelocity->vx > MAXVELOCITY)

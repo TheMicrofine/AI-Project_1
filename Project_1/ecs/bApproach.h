@@ -3,6 +3,8 @@
 
 #include "Behaviour.h"
 #include "Entity.h"
+#include "EntityManager.h"
+#include "cProperties.h"
 
 class ApproachBehaviour : public Behaviour
 {
