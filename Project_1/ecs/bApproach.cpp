@@ -55,7 +55,6 @@ void ApproachBehaviour::Update(float dt)
 		agentVelocity->vx = 0;
 		agentVelocity->vy = 0;
 
-		// shoot mans
 		if (!isShoot)
 		{
 			bulletTransform->position = agentTransform->position;
@@ -94,9 +93,10 @@ void ApproachBehaviour::Update(float dt)
 				isShoot = false;
 			}
 			else
+			{
 				currentTime = std::clock();
+			}
 		}
-
 	}
 	else
 	{
@@ -114,13 +114,9 @@ void ApproachBehaviour::Update(float dt)
 		}
 	}
 
-
-
 	if (agentVelocity->vx > MAXVELOCITY)
 		agentVelocity->vx = MAXVELOCITY;
 
 	if (agentVelocity->vy > MAXVELOCITY)
 		agentVelocity->vy = MAXVELOCITY;
-
 }
-

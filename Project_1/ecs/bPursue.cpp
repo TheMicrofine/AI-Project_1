@@ -11,13 +11,64 @@ PursueBehaviour::~PursueBehaviour(void)
 {
 }
 
-bool LineIntersectingCircle(glm::vec3& lineOfSight, glm::vec3& lineOfSightHalf, Entity* bullet)
+void PursueBehaviour::Update(float dt)
 {
-	Transform* bulletTransform = bullet->GetComponent<Transform>();
+	assert(mAgent);
+	assert(mTarget);
 
-	bool isCollideA = glm::length(bulletTransform->position - lineOfSight) < bulletTransform->sphereRadius;
+	// Gets nessesary components from entites
+	Transform* agentTransform = mAgent->GetComponent<Transform>();
+	Transform* targetTransform = mTarget->GetComponent<Transform>();
+	Velocity* agentVelocity = mAgent->GetComponent<Velocity>();
+	Velocity* targetVelocity = mTarget->GetComponent<Velocity>();
+	Properties* agentProperties = mAgent->GetComponent<Properties>();
 
-	bool isCollideB = glm::length(bulletTransform->position - lineOfSightHalf) < bulletTransform->sphereRadius;
+	if (agentTransform == 0 || targetTransform == 0 || agentVelocity == 0) return;
+
+	float magnitude = glm::length(targetTransform->position - agentTransform->position);
+
+	int T = (int)magnitude / (int)MAXVELOCITY;
+
+	glm::vec3 futurePosition;
+	futurePosition.x = targetTransform->position.x + targetVelocity->vx * T;
+	futurePosition.y = targetTransform->position.y + targetVelocity->vy * T;
+
+	glm::vec3 desiredVelocity = glm::normalize(futurePosition - agentTransform->position);
+
+	desiredVelocity *= MAXVELOCITY;
+
+	glm::vec3 avoidanceVector = glm::vec3(0.0f, 0.0f, 0.0f);
+	bool bIsThreatDetected = BulletDetection(avoidanceVector);
+
+	glm::vec3 steer;
+
+	if (bIsThreatDetected)
+	{
+		agentProperties->setDiffuseColour(glm::vec3(1.0f, 1.0f, 0.0f));
+		agentVelocity->vx = (agentVelocity->vx + avoidanceVector.x);
+		agentVelocity->vy = (agentVelocity->vy + avoidanceVector.y);
+	}
+	else
+	{
+		agentProperties->setDiffuseColour(glm::vec3(0.0f, 1.0f, 0.0f));
+		steer.x = desiredVelocity.x - agentVelocity->vx;
+		steer.y = desiredVelocity.y - agentVelocity->vy;
+		
+		agentVelocity->vx += steer.x * dt;
+		agentVelocity->vy += steer.y * dt;
+	}
+
+	if (magnitude > MAXVELOCITY)
+	{
+		glm::vec3 normalized = { agentVelocity->vx, agentVelocity->vy, 0 };
+
+		double mag = glm::length(normalized);
+
+		normalized /= mag;
+
+		agentVelocity->vx = normalized.x * MAXVELOCITY;
+		agentVelocity->vy = normalized.y * MAXVELOCITY;
+	}
 }
 
 bool PursueBehaviour::BulletDetection(glm::vec3& closestBulletAvoidanceVector)
@@ -91,74 +142,3 @@ void PursueBehaviour::ClosestPtPointSegment(glm::vec3 c, glm::vec3 a, glm::vec3 
 	// Compute projected position from the clamped t
 	d = a + t * ab;
 }
-
-void PursueBehaviour::Update(float dt)
-{
-	assert(mAgent);
-	assert(mTarget);
-
-	// Gets nessesary components from entites
-	Transform* agentTransform = mAgent->GetComponent<Transform>();
-	Transform* targetTransform = mTarget->GetComponent<Transform>();
-	Velocity* agentVelocity = mAgent->GetComponent<Velocity>();
-	Velocity* targetVelocity = mTarget->GetComponent<Velocity>();
-	Properties* agentProperties = mAgent->GetComponent<Properties>();
-
-	if (agentTransform == 0 || targetTransform == 0 || agentVelocity == 0) return;
-
-	float magnitude = glm::length(targetTransform->position - agentTransform->position);
-
-	int T = (int)magnitude / (int)MAXVELOCITY;
-
-	glm::vec3 futurePosition;
-	futurePosition.x = targetTransform->position.x + targetVelocity->vx * T;
-	futurePosition.y = targetTransform->position.y + targetVelocity->vy * T;
-
-	glm::vec3 desiredVelocity = glm::normalize(futurePosition - agentTransform->position);
-
-	desiredVelocity *= MAXVELOCITY;
-
-	glm::vec3 agentVel = glm::vec3(agentVelocity->vx, agentVelocity->vy, 0);
-
-	//glm::vec3 lineOfSight = agentTransform->position + glm::normalize(agentVel) * LINEOFSIGHTRANGE;
-
-	//glm::vec3 lineOfSightHalf = agentTransform->position + glm::normalize(agentVel) * LINEOFSIGHTRANGE * 0.5f;
-
-	//glm::vec3 threatPos = glm::vec3(0.0, 0.0, 0.0);
-
-	//bool bIsThreatDetected = BulletDetection(g_bullets, lineOfSight, lineOfSightHalf, threatPos, agentTransform->position);
-	//bool bIsThreatDetected = BulletDetection(g_bullets, agentTransform->position, threatPos);
-	glm::vec3 avoidanceVector = glm::vec3(0.0f, 0.0f, 0.0f);
-	bool bIsThreatDetected = BulletDetection(avoidanceVector);
-
-	glm::vec3 steer;
-
-	if (bIsThreatDetected)
-	{
-		agentProperties->setDiffuseColour(glm::vec3(1.0f, 1.0f, 0.0f));
-		agentVelocity->vx = (agentVelocity->vx + avoidanceVector.x);
-		agentVelocity->vy = (agentVelocity->vy + avoidanceVector.y);
-	}
-	else
-	{
-		agentProperties->setDiffuseColour(glm::vec3(0.0f, 1.0f, 0.0f));
-		steer.x = desiredVelocity.x - agentVelocity->vx;
-		steer.y = desiredVelocity.y - agentVelocity->vy;
-		
-		agentVelocity->vx += steer.x * dt;
-		agentVelocity->vy += steer.y * dt;
-	}
-
-	if (magnitude > MAXVELOCITY)
-	{
-		glm::vec3 normalized = { agentVelocity->vx, agentVelocity->vy, 0 };
-
-		double mag = glm::length(normalized);
-
-		normalized /= mag;
-
-		agentVelocity->vx = normalized.x * MAXVELOCITY;
-		agentVelocity->vy = normalized.y * MAXVELOCITY;
-	}
-}
-
