@@ -5,10 +5,13 @@
 #include <assert.h>
 #include <ctime>
 
-float const PI = 3.1415926;
+float currentTime = 0.0f;
+float start = 0.0f;
 
-ApproachBehaviour::ApproachBehaviour(Entity* agent, Entity* target) : mAgent(agent), mTarget(target)
+ApproachBehaviour::ApproachBehaviour(Entity* agent, Entity* target, Entity* bullet)
+	: mAgent(agent), mTarget(target), mBullet(bullet)
 {
+	isShoot = false;
 }
 
 ApproachBehaviour::~ApproachBehaviour(void)
@@ -23,8 +26,9 @@ void ApproachBehaviour::Update(float dt)
 	// Gets nessesary components from entites
 	Transform* agentTransform = mAgent->GetComponent<Transform>();
 	Transform* targetTransform = mTarget->GetComponent<Transform>();
+	Transform* bulletTransform = mBullet->GetComponent<Transform>();
 	Velocity* agentVelocity = mAgent->GetComponent<Velocity>();
-	//Velocity* bulletVelocity = mBullet->GetComponent<Velocity>();
+	Velocity* bulletVelocity = mBullet->GetComponent<Velocity>();
 
 	if (agentTransform == 0 || targetTransform == 0 || agentVelocity == 0) return;
 
@@ -52,31 +56,46 @@ void ApproachBehaviour::Update(float dt)
 		agentVelocity->vy = 0;
 
 		// shoot mans
-		//float currentTime = std::clock();
-		//
-		//glm::vec3 desiredVelocity = glm::normalize(targetTransform->position - agentTransform->position);
-		//float magnitude = glm::length(targetTransform->position - agentTransform->position);
-		//desiredVelocity *= MAXVELOCITY;
+		if (!isShoot)
+		{
+			bulletTransform->position = agentTransform->position;
+			isShoot = true;
+			start = std::clock();
+			currentTime = start;
 
-		//glm::vec3 steer;
-		//steer.x = desiredVelocity.x - bulletVelocity->vx;
-		//steer.y = desiredVelocity.y - bulletVelocity->vy;
+			glm::vec3 desiredVelocity = glm::normalize(targetTransform->position - agentTransform->position);
+			float magnitude = glm::length(targetTransform->position - agentTransform->position);
+			desiredVelocity *= MAXVELOCITY;
 
-		//bulletVelocity->vx += steer.x * dt;
-		//bulletVelocity->vy += steer.y * dt;
+			glm::vec3 steer;
+			steer.x = desiredVelocity.x - bulletVelocity->vx;
+			steer.y = desiredVelocity.y - bulletVelocity->vy;
 
-		//if (magnitude > MAXVELOCITY)
-		//{
-		//	glm::vec3 normalized = { bulletVelocity->vx, bulletVelocity->vy, 0 };
+			bulletVelocity->vx += steer.x * dt;
+			bulletVelocity->vy += steer.y * dt;
 
-		//	double mag = glm::length(normalized);
+			if (magnitude > MAXVELOCITY)
+			{
+				glm::vec3 normalized = { bulletVelocity->vx, bulletVelocity->vy, 0 };
+				double mag = glm::length(normalized);
+				normalized /= mag;
 
-		//	normalized /= mag;
-
-		//	bulletVelocity->vx = normalized.x * MAXVELOCITY;
-		//	bulletVelocity->vy = normalized.y * MAXVELOCITY;
-		//}
-
+				bulletVelocity->vx = normalized.x * MAXVELOCITY;
+				bulletVelocity->vy = normalized.y * MAXVELOCITY;
+			}
+		}
+		else
+		{
+			if ((currentTime - start) / (float)CLOCKS_PER_SEC > 4.0f)
+			{
+				bulletTransform->position = agentTransform->position;
+				bulletVelocity->vx = 0;
+				bulletVelocity->vy = 0;
+				isShoot = false;
+			}
+			else
+				currentTime = std::clock();
+		}
 
 	}
 	else
@@ -87,9 +106,15 @@ void ApproachBehaviour::Update(float dt)
 		agentVelocity->vx += steer.x * dt;
 		agentVelocity->vy += steer.y * dt;
 
-		//bulletVelocity->vx += steer.x * dt;
-		//bulletVelocity->vy += steer.y * dt;
+		if (!isShoot)
+		{
+			bulletTransform->position = agentTransform->position;
+			bulletVelocity->vx = agentVelocity->vx;
+			bulletVelocity->vy = agentVelocity->vy;
+		}
 	}
+
+
 
 	if (agentVelocity->vx > MAXVELOCITY)
 		agentVelocity->vx = MAXVELOCITY;
@@ -97,53 +122,5 @@ void ApproachBehaviour::Update(float dt)
 	if (agentVelocity->vy > MAXVELOCITY)
 		agentVelocity->vy = MAXVELOCITY;
 
-	//glm::vec3 desiredVelocity = glm::normalize(targetTransform->position - agentTransform->position);
-
-	//float distance = glm::length(targetTransform->position - agentTransform->position);
-
-	//std::cout << distance << std::endl;
-
-	//if (distance < SLOWINGRADIUS)
-	//{
-	//	desiredVelocity = desiredVelocity * MAXVELOCITY * (distance / SLOWINGRADIUS);
-	//	std::cout << "IN SLOWING RADIUS" << std::endl;
-	//	std::cout << "Y VALUE" << desiredVelocity.y << std::endl;
-	//}
-	//else
-	//{
-	//	desiredVelocity *= MAXVELOCITY;
-	//}
-
-	//glm::vec3 steer;
-
-	//std::cout << "MATH: " << (distance/MAINTAINRADUIS)<< std::endl;
-	//if (distance < MAINTAINRADUIS)
-	//{
-	//	//agentVelocity->vx = 0;
-	//	//agentVelocity->vy = 0;
-	//	std::cout << "IN MAINTAIN RADIUS" << std::endl;
-	//	steer.x = -agentVelocity->vx;
-	//	steer.y = -agentVelocity->vy;
-	//}
-	//else
-	//{
-	//	steer.x = desiredVelocity.x - agentVelocity->vx;
-	//	steer.y = desiredVelocity.y - agentVelocity->vy;
-	//}
-
-	//agentVelocity->vx += steer.x * dt;
-	//agentVelocity->vy += steer.y * dt;
-	//
-	//if (distance > MAXVELOCITY)
-	//{
-	//	glm::vec3 normalized = { agentVelocity->vx, agentVelocity->vy, 0 };
-
-	//	double mag = glm::length(normalized);
-
-	//	normalized /= mag;
-
-	//	agentVelocity->vx = normalized.x * MAXVELOCITY;
-	//	agentVelocity->vy = normalized.y * MAXVELOCITY;
-	//}
 }
 

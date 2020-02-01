@@ -16,12 +16,12 @@ bool LineIntersectingCircle(glm::vec3& lineOfSight, glm::vec3& lineOfSightHalf, 
 	Transform* bulletTransform = bullet->GetComponent<Transform>();
 
 	bool isCollideA = glm::length(bulletTransform->position - lineOfSight) < bulletTransform->sphereRadius;
-	std::cout << "COLLIDE A " << glm::length(bulletTransform->position - lineOfSight) << std::endl;
+	//std::cout << "COLLIDE A " << glm::length(bulletTransform->position - lineOfSight) << std::endl;
 //	std::cout << "COLLIDE A " << isCollideA << std::endl;
 
 	bool isCollideB = glm::length(bulletTransform->position - lineOfSightHalf) < bulletTransform->sphereRadius;
 //	std::cout << "COLLIDE B " << isCollideB << std::endl;
-	std::cout << "COLLIDE B " << glm::length(bulletTransform->position - lineOfSightHalf) << std::endl;
+	//std::cout << "COLLIDE B " << glm::length(bulletTransform->position - lineOfSightHalf) << std::endl;
 
 	return (isCollideA || isCollideB);
 }
@@ -33,7 +33,7 @@ bool ObstacleDetection(std::vector<Entity*>& bullets, glm::vec3& lineOfSight, gl
 	{
 		bool bIsCollision = LineIntersectingCircle(lineOfSight, lineOfSightHalf, e);
 
-		std::cout << bIsCollision << std::endl;
+		//std::cout << bIsCollision << std::endl;
 
 		Transform* bulletTransform = e->GetComponent<Transform>();
 		glm::vec3 bulletPos = bulletTransform->position;

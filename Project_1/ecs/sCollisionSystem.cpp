@@ -17,7 +17,7 @@ struct CollisionPair
 
 float const PI = 3.1415926;
 
-void CollisionSystem::Process(const std::vector<Entity*> &entities, float dt)
+void CollisionSystem::Process(const std::vector<Entity*>& entities, float dt)
 {
 
 	Entity* entityA;
@@ -51,10 +51,15 @@ void CollisionSystem::Process(const std::vector<Entity*> &entities, float dt)
 
 			if (TestSphereSphereCollision(transformA->position, transformA->sphereRadius, transformB->position, transformB->sphereRadius))
 			{
-				if(!(propertyA->type == Type::PLAYER && propertyB->type == Type::BULLET))
-					if(!(propertyA->type == Type::ENEMY && propertyB->type == Type::ENEMY))
+				if (!(propertyA->type == Type::PLAYER && propertyB->type == Type::BULLET))
+					if (!(propertyA->type == Type::ENEMY && propertyB->type == Type::ENEMY))
 						if (!(propertyA->type == Type::BULLET && propertyB->type == Type::BULLET))
-							std::cout << entityA->name << " has collided with " << entityB->name << std::endl;
+							if (!(propertyA->type == Type::EBULLET && propertyB->type == Type::EBULLET))
+								if (!(propertyA->type == Type::BULLET && propertyB->type == Type::EBULLET))
+									if (!(propertyA->type == Type::EBULLET && propertyB->type == Type::BULLET))
+										if (!(propertyA->type == Type::ENEMY && propertyB->type == Type::EBULLET))
+											if (!(propertyA->type == Type::EBULLET && propertyB->type == Type::ENEMY))
+												std::cout << entityA->name << " has collided with " << entityB->name << std::endl;
 
 				if (propertyA->type == Type::PLAYER && propertyB->type == Type::ENEMY)
 				{
@@ -67,13 +72,22 @@ void CollisionSystem::Process(const std::vector<Entity*> &entities, float dt)
 					transformB->position = glm::vec3(x, y, 0.0f);
 				}
 
+				if (propertyA->type == Type::PLAYER && propertyB->type == Type::EBULLET)
+				{
+					playerTransform->position = glm::vec3(0.0f, 0.0f, 0.0f);
+
+					transformB->position = glm::vec3(1000, 0, 0.0f);
+					velocityB->vx = 0.0f;
+					velocityB->vy = 0.0f;
+				}
+
 				if (propertyA->type == Type::ENEMY && propertyB->type == Type::BULLET)
 				{
 					float circleRadius = 550.0f;
 					float angle = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (PI * 2)));
-					float x = sin(angle) * circleRadius; 
+					float x = sin(angle) * circleRadius;
 					float y = cos(angle) * circleRadius;
-					
+
 					transformA->position = glm::vec3(x, y, 0.0f);
 					transformB->position = glm::vec3(-2500.0f, 300.0f, 0.0f);
 					velocityB->vx = 0.0f;
@@ -84,7 +98,7 @@ void CollisionSystem::Process(const std::vector<Entity*> &entities, float dt)
 	}
 }
 
-bool CollisionSystem::TestSphereSphereCollision(const glm::vec3 &pA, float rA, const glm::vec3 &pB, float rB)
+bool CollisionSystem::TestSphereSphereCollision(const glm::vec3& pA, float rA, const glm::vec3& pB, float rB)
 {
 	float xDiff = pA.x - pB.x;
 	float yDiff = pA.y - pB.y;

@@ -30,7 +30,7 @@ void SeekBehaviour::Update(float dt)
 
 	glm::vec3 targetForward = glm::normalize(glm::toMat3(targetTransform->getQOrientation()) * glm::vec3(0.0f, 0.0f, 1.0f));
 
-	std::cout << "dot " << glm::dot(agentForward, targetForward) << std::endl;
+	//std::cout << "dot " << glm::dot(agentForward, targetForward) << std::endl;
 
 	if (glm::dot(agentForward, targetForward) > 0)
 	{

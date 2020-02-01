@@ -72,7 +72,7 @@ void LoadModelsIntoScene()
 	entity1->name = "Player";
 
 	Properties* properties1 = entity1->AddComponent<Properties>();
-	properties1->setDiffuseColour(glm::vec3(0.0f, 0.0f, 0.0f));
+	properties1->setDiffuseColour(glm::vec3(0.2f, 0.2f, 0.2f));
 	properties1->bDontLight = true;
 	properties1->meshName = "SpherePoint_n_uv.ply";
 	properties1->type = Type::PLAYER;
@@ -167,19 +167,25 @@ void LoadModelsIntoScene()
 
 		entity4->AddComponent<Velocity>();
 
-		//Entity* mBullet = EntityManager::CreateEntity();
-		//mBullet->name = "Approach_Bullet";
+		Entity* mBullet = EntityManager::CreateEntity();
+		mBullet->name = "Approach_Bullet" + std::to_string(i);
 
-		//Properties* properties = mBullet->AddComponent<Properties>();
-		//properties->setDiffuseColour(glm::vec3(0.0f, 0.0f, 0.0f));
-		//properties->bDontLight = true;
-		//properties->meshName = "Sphere_n_uv.ply";
-		//properties->type = Type::EBULLET;
+		Properties* properties = mBullet->AddComponent<Properties>();
+		properties->setDiffuseColour(glm::vec3(0.6f, 0.0f, 0.7f));
+		properties->bDontLight = true;
+		properties->meshName = "Sphere_n_uv.ply";
+		properties->type = Type::EBULLET;
+		properties->bIsVisible = true;
 
-		//mBullet->AddComponent<Transform>();
-		//mBullet->AddComponent<Velocity>();
+		Transform* transformBullet = mBullet->AddComponent<Transform>();
+		transformBullet->position = glm::vec3(x, y, 0.0f);
+		transformBullet->setUniformScale(10.0f);
+		transformBullet->orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+		transformBullet->sphereRadius = transformBullet->scale.x;
 
-		gBehaviourManager.SetBehaviour(entity4, new ApproachBehaviour(entity4, entity1));
+		mBullet->AddComponent<Velocity>();
+
+		gBehaviourManager.SetBehaviour(entity4, new ApproachBehaviour(entity4, entity1, mBullet));
 	}
 
 	// ENTITY #5 - Wander
@@ -211,13 +217,13 @@ void LoadModelsIntoScene()
 	}
 
 	// ENTITY PLAYER BULLETS
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		Entity* entity = EntityManager::CreateEntity();
 		entity->name = "playerBullet" + std::to_string(i);
 
 		Properties* properties = entity->AddComponent<Properties>();
-		properties->setDiffuseColour(glm::vec3(194.0f / 155.0f, 64.0f / 255.0f, 118.0f / 255.0f));
+		properties->setDiffuseColour(glm::vec3(0.0f, 0.0f, 0.0f));
 		properties->bDontLight = true;
 		properties->meshName = "Sphere_n_uv.ply";
 		properties->bIsVisible = true;
@@ -244,7 +250,6 @@ void LoadModelsIntoScene()
 		properties->meshName = "Sphere_n_uv.ply";
 		properties->bIsVisible = false;
 		properties->bIsWireFrame = true;
-
 		Transform* transform = entity->AddComponent<Transform>();
 		transform->position = glm::vec3(0.0f, 0.0f, 0.0f);
 		transform->setUniformScale(0.1f);
