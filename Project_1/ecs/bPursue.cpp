@@ -12,12 +12,13 @@ PursueBehaviour::~PursueBehaviour(void)
 }
 
 bool LineIntersectingCircle(glm::vec3& lineOfSight, glm::vec3& lineOfSightHalf, Entity* bullet)
-{	
+{
 	Transform* bulletTransform = bullet->GetComponent<Transform>();
 
 	bool isCollideA = glm::length(bulletTransform->position - lineOfSight) < bulletTransform->sphereRadius;
 
 	bool isCollideB = glm::length(bulletTransform->position - lineOfSightHalf) < bulletTransform->sphereRadius;
+}
 
 bool PursueBehaviour::BulletDetection(glm::vec3& closestBulletAvoidanceVector)
 {

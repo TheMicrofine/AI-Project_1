@@ -88,7 +88,7 @@ void LoadModelsIntoScene()
 
 
 	// ENTITY #2 - Seek
-	for (int i = 0; i < 0; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		Entity* entity2 = EntityManager::CreateEntity();
 		entity2->name = "Seek" + std::to_string(i);
@@ -115,7 +115,7 @@ void LoadModelsIntoScene()
 	}
 
 	// ENTITY #3 - Pursue
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		Entity* entity3 = EntityManager::CreateEntity();
 		entity3->name = "Pursue" + std::to_string(i);
@@ -143,7 +143,7 @@ void LoadModelsIntoScene()
 	}
 
 	// ENTITY #4 - Approach
-	for (int i = 0; i < 0; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		Entity* entity4 = EntityManager::CreateEntity();
 		entity4->name = "Approach" + std::to_string(i);
@@ -189,7 +189,7 @@ void LoadModelsIntoScene()
 	}
 
 	// ENTITY #5 - Wander
-	for (int i = 0; i < 0; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		Entity* entity5 = EntityManager::CreateEntity();
 		entity5->name = "Wander" + std::to_string(i);
