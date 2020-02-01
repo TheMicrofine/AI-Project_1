@@ -15,12 +15,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
-		//if (bulletCount >= 9)
-		//	bulletCount = 0;
+		if (bulletCount >= 9)
+			bulletCount = 0;
 
-		//bulletCount++;
-
-		bulletCount = 0;
+		bulletCount++;
 
 		Transform* bulletTransform = g_bullets.at(bulletCount)->GetComponent<Transform>();
 		Velocity* bulletVelocity = g_bullets.at(bulletCount)->GetComponent<Velocity>();
